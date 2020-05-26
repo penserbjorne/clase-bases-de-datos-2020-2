@@ -1,0 +1,50 @@
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> create global temporary table empleado_temp_dr (
+  2  empleado_id number(10,0) not null,
+  3  nombre varchar2(40) not null,
+  4  )
+  5  on commit delete rows
+  6  ;
+)
+*
+ERROR at line 4:
+ORA-00904: : invalid identifier 
+
+
+PAUL0107-SQL> edit
+Wrote file afiedt.buf
+
+  1  create global temporary table empleado_temp_dr (
+  2  empleado_id number(10,0) not null,
+  3  nombre varchar2(40) not null
+  4  )
+  5* on commit delete rows
+PAUL0107-SQL> run
+  1  create global temporary table empleado_temp_dr (
+  2  empleado_id number(10,0) not null,
+  3  nombre varchar2(40) not null
+  4  )
+  5* on commit delete rows
+
+Table created.
+
+PAUL0107-SQL> insert into empleado_temp_dr(empleado_id, nombre) values(1,'paul');
+
+1 row created.
+
+PAUL0107-SQL> select * from empleado_temp_dr;
+
+EMPLEADO_ID NOMBRE                                                              
+----------- ----------------------------------------                            
+          1 paul                                                                
+
+PAUL0107-SQL> commit;
+
+Commit complete.
+
+PAUL0107-SQL> select * from empleado_temp_dr;
+
+no rows selected
+
+PAUL0107-SQL> spool off

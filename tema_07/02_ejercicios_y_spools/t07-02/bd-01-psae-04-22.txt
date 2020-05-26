@@ -1,0 +1,174 @@
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> spool off
+PAUL0107-SQL> create table pensionada(
+  2  pensionada_id number(10,0) constraint pensionada_pk primary key,
+  3  nombre varchar2(40) not null
+  4  );
+
+Table created.
+
+PAUL0107-SQL> create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empeladi_id),
+  7  constraint pensionada_empleado_pk primary key (pensionada_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9  );
+constraint pensionada_empleado_pk primary key (pensionada_id, pensionada_id),
+                                                              *
+ERROR at line 7:
+ORA-00957: duplicate column name 
+
+
+PAUL0107-SQL> edit
+Wrote file afiedt.buf
+
+  1  create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empeladi_id),
+  7  constraint pensionada_empleado_pk primary key (empleado_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9* )
+PAUL0107-SQL> run
+  1  create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empeladi_id),
+  7  constraint pensionada_empleado_pk primary key (empleado_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9* )
+references empleado(empeladi_id),
+                    *
+ERROR at line 6:
+ORA-00904: "EMPELADI_ID": invalid identifier 
+
+
+PAUL0107-SQL> edit
+Wrote file afiedt.buf
+
+  1  create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empeladi_id),
+  7  constraint pensionada_empleado_pk primary key (empleado_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9* )
+PAUL0107-SQL> edit
+Wrote file afiedt.buf
+
+  1  create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empleado_id),
+  7  constraint pensionada_empleado_pk primary key (empleado_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9* )
+PAUL0107-SQL> run
+  1  create table pensionada_empleado(
+  2  pensionada_id constraint pensionada_empleado_pensionada_id_fk
+  3  references pensionada(pensionada_id),
+  4  empleado_id number(10,0),
+  5  constraint pensionada_empleado_empleado_id_fk foreign key (empleado_id)
+  6  references empleado(empleado_id),
+  7  constraint pensionada_empleado_pk primary key (empleado_id, pensionada_id),
+  8  porcentaje number(5,2) not null
+  9* )
+
+Table created.
+
+PAUL0107-SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+EMPLEADO_EXT                                                                    
+EMPLEADO_SIMPLE                                                                 
+CALCULO_SUELDO                                                                  
+EMPLEADO_EXT2                                                                   
+EMPLEADO_TEMP                                                                   
+PRUEBA_ALUMNO                                                                   
+INCIDENCIA                                                                      
+PUESTO                                                                          
+PUESTO_TC                                                                       
+EMPLEADO                                                                        
+EMPLEADO_TC                                                                     
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+EMPLEADO_TEMP_DR                                                                
+SALON                                                                           
+CLIENTE                                                                         
+BOLETO                                                                          
+PENSIONADA                                                                      
+PENSIONADA_EMPLEADO                                                             
+
+17 rows selected.
+
+PAUL0107-SQL> create table nominia(
+  2  nomina_id number(10,0) constraint nomina_pk primary key,
+  3  quincena_id references quincena(quincena_id)
+  4  on delete cascade
+  5  );
+quincena_id references quincena(quincena_id)
+                       *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+PAUL0107-SQL> create table quincena(
+  2  quincena_id number(2,0) constraint quincena_pk primary key,
+  3  clave varchar2(3) not null
+  4  );
+
+Table created.
+
+PAUL0107-SQL> create table nomina(
+  2  nomina_id number(10,0) constraint nomina_pk primary key,
+  3  quincena_id references quincena(quincena_id)
+  4  on delete cascade
+  5  );
+
+Table created.
+
+PAUL0107-SQL> insert into quincena(quincena_id, clave) values(1, 'q01');
+
+1 row created.
+
+PAUL0107-SQL> insert into nomina values(100,1);
+
+1 row created.
+
+PAUL0107-SQL> commit;
+
+Commit complete.
+
+PAUL0107-SQL> select * from nomina;
+
+ NOMINA_ID QUINCENA_ID                                                          
+---------- -----------                                                          
+       100           1                                                          
+
+PAUL0107-SQL> delete from quincena;
+
+1 row deleted.
+
+PAUL0107-SQL> select * from nomina;
+
+no rows selected
+
+PAUL0107-SQL> drop table nomina;
+
+Table dropped.
+
+PAUL0107-SQL> spool off;

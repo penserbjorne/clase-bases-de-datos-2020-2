@@ -1,0 +1,398 @@
+SYS-SQL> !ls
+
+SYS-SQL> start empleado_ext.sql
+Conectando como sys
+Connected.
+creando directorio tmp_dir
+
+Directory created.
+
+
+Grant succeeded.
+
+Contectando con usuario paul0107 para crear la tabla externa
+Connected.
+USER is "PAUL0107"
+creando tabla externa
+create table empleado_ext (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+creando el directorio /tmp/bases en caso de no existir
+
+copiando el archivo csv a /tmp/bases
+
+cambiando permisos
+
+mostrando los datos
+
+no rows selected
+
+PAUL0107-SQL> drop table empleado_ext;
+
+Table dropped.
+
+PAUL0107-SQL> start empleado_ext.sql
+Conectando como sys
+Connected.
+creando directorio tmp_dir
+
+Directory created.
+
+
+Grant succeeded.
+
+Contectando con usuario paul0107 para crear la tabla externa
+Connected.
+USER is "PAUL0107"
+creando tabla externa
+
+Table created.
+
+creando el directorio /tmp/bases en caso de no existir
+
+copiando el archivo csv a /tmp/bases
+
+cambiando permisos
+
+mostrando los datos
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+         100 juan                 lopez                martinez                 
+10-OCT-87                                                                       
+                                                                                
+         101 mario                jimenez              perez                    
+23-AUG-99                                                                       
+                                                                                
+
+PAUL0107-SQL> !ls -la
+
+PAUL0107-SQL> !ls
+
+PAUL0107-SQL> start empleado_ext2.sql
+Conectando como sys
+Connected.
+creando directorio tmp_dir
+
+Directory created.
+
+
+Grant succeeded.
+
+Contectando con usuario paul0107 para crear la tabla externa
+Connected.
+USER is "PAUL0107"
+eliminando la tabla externa por si existia
+drop table empleado_ext2
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+creando tabla externa
+
+Table created.
+
+creando el directorio /tmp/bases en caso de no existir
+
+copiando el archivo csv a /tmp/bases
+
+cambiando permisos
+
+mostrando los datos
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         100 juan                 lopez                martinez                 
+10-OCT-87                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         101 mario                jimenez              perez                    
+23-AUG-99                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         102 paul                 aguilar              enriquez                 
+14-AUG-94                                                                       
+paul@email.com                                                                  
+         10000        100                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         103 laura                perez                bueno                    
+28-APR-00                                                                       
+                                                                                
+         20000        200                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         104 simon                ramirez              ancona                   
+23-AUG-99                                                                       
+simon@email.com                                                                 
+                      150                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         105 carlos               marlup               dominguez                
+23-AUG-99                                                                       
+carlos@email.com                                                                
+           500                                                                  
+                                                                                
+
+6 rows selected.
+
+PAUL0107-SQL> select * from empleado_ext2;
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         100 juan                 lopez                martinez                 
+10-OCT-87                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         101 mario                jimenez              perez                    
+23-AUG-99                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         102 paul                 aguilar              enriquez                 
+14-AUG-94                                                                       
+paul@email.com                                                                  
+         10000        100                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         103 laura                perez                bueno                    
+28-APR-00                                                                       
+                                                                                
+         20000        200                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         104 simon                ramirez              ancona                   
+23-AUG-99                                                                       
+simon@email.com                                                                 
+                      150                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         105 carlos               marlup               dominguez                
+23-AUG-99                                                                       
+carlos@email.com                                                                
+           500                                                                  
+                                                                                
+
+6 rows selected.
+
+PAUL0107-SQL> start empleado_ext2.sql
+Conectando como sys
+Connected.
+creando directorio tmp_dir
+
+Directory created.
+
+
+Grant succeeded.
+
+Contectando con usuario paul0107 para crear la tabla externa
+Connected.
+USER is "PAUL0107"
+eliminando la tabla externa por si existia
+
+Table dropped.
+
+creando tabla externa
+
+Table created.
+
+creando el directorio /tmp/bases en caso de no existir
+
+copiando el archivo csv a /tmp/bases
+
+cambiando permisos
+
+mostrando los datos
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         100 juan                 lopez                martinez                 
+10-OCT-87                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         101 mario                jimenez              perez                    
+23-AUG-99                                                                       
+                                                                                
+                                                                                
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         102 paul                 aguilar              enriquez                 
+14-AUG-94                                                                       
+paul@email.com                                                                  
+         10000         .1                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         103 laura                perez                bueno                    
+28-APR-00                                                                       
+                                                                                
+         20000         .2                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         104 simon                ramirez              ancona                   
+23-AUG-99                                                                       
+simon@email.com                                                                 
+                      .15                                                       
+                                                                                
+
+NUM_EMPLEADO NOMBRE               AP_PATERNO           AP_MATERNO               
+------------ -------------------- -------------------- --------------------     
+FECHA_NACIMIENTO                                                                
+------------------                                                              
+EMAIL                                                                           
+--------------------------------------------------------------------------------
+SUELDO_MENSUAL   COMISION                                                       
+-------------- ----------                                                       
+         105 carlos               marlup               dominguez                
+23-AUG-99                                                                       
+carlos@email.com                                                                
+           500                                                                  
+                                                                                
+
+6 rows selected.
+
+PAUL0107-SQL> exit

@@ -1,0 +1,99 @@
+PAUL0107-SQL> create table nomina(
+  2  nomina_id number(10,0) constraint nomina_pk primary key,
+  3  quincena_id references quincena(quincena_id)
+  4  on delete set null
+  5  );
+
+Table created.
+
+PAUL0107-SQL> insert into quincena(quincena_id, clave) values(1, 'q01');
+
+1 row created.
+
+PAUL0107-SQL> insert into nomina values(100,1);
+
+1 row created.
+
+PAUL0107-SQL> commit;
+
+Commit complete.
+
+PAUL0107-SQL> select * from nomina;
+
+ NOMINA_ID QUINCENA_ID                                                          
+---------- -----------                                                          
+       100           1                                                          
+
+PAUL0107-SQL> select * from quincena;
+
+QUINCENA_ID CLA                                                                 
+----------- ---                                                                 
+          1 q01                                                                 
+
+PAUL0107-SQL> delete from quincena where quincena_id=1;
+
+1 row deleted.
+
+PAUL0107-SQL> select * from nomina;
+
+ NOMINA_ID QUINCENA_ID                                                          
+---------- -----------                                                          
+       100                                                                      
+
+PAUL0107-SQL> select * from quincena;
+
+no rows selected
+
+PAUL0107-SQL> drop table nomina;
+
+Table dropped.
+
+PAUL0107-SQL> create table nomina(
+  2  nomina_id number(10,0) constraint nomina_pk primary key,
+  3  quincena_id references quincena(quincena_id)
+  4  );
+
+Table created.
+
+PAUL0107-SQL> insert into quincena(quincena_id, clave) values(1, 'q01');
+
+1 row created.
+
+PAUL0107-SQL> insert into nomina values(200,2);
+insert into nomina values(200,2)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (PAUL0107.SYS_C007384) violated - parent key
+not found 
+
+
+PAUL0107-SQL> insert into nomina values(100,1);
+
+1 row created.
+
+PAUL0107-SQL> commit;
+
+Commit complete.
+
+PAUL0107-SQL> select * from nomina;
+
+ NOMINA_ID QUINCENA_ID                                                          
+---------- -----------                                                          
+       100           1                                                          
+
+PAUL0107-SQL> select * from quincena;
+
+QUINCENA_ID CLA                                                                 
+----------- ---                                                                 
+          1 q01                                                                 
+
+PAUL0107-SQL> delete from quincena where quincena_id=1;
+delete from quincena where quincena_id=1
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (PAUL0107.SYS_C007384) violated - child record
+found 
+
+
+PAUL0107-SQL> --- :D
+PAUL0107-SQL> spool off

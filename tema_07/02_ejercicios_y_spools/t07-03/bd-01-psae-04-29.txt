@@ -1,0 +1,148 @@
+SYS-SQL> create user invitado indentified by invitado;
+create user invitado indentified by invitado
+                     *
+ERROR at line 1:
+ORA-00922: missing or invalid option 
+
+
+SYS-SQL> create user invitado identified by invitado;
+
+User created.
+
+SYS-SQL> grant create session, create synonym, create public synonym;
+grant create session, create synonym, create public synonym
+                                                          *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SYS-SQL> grant create session, create synonym, create public synonym to invitado;
+
+Grant succeeded.
+
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> grant select on empleado to invitado;
+
+Grant succeeded.
+
+PAUL0107-SQL> connect invitado;
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+-SQL> connect invitado
+Connected.
+INVITADO-SQL> create or replace public synonym emp1 for paul0107.empleado;
+
+Synonym created.
+
+INVITADO-SQL> create or replace synonym emp2 for paul0107.empleado;
+
+Synonym created.
+
+INVITADO-SQL> select * from emp1;
+
+EMPLEADO_ID  PUESTO_ID NOMBRE                                                   
+----------- ---------- --------------------                                     
+         10          1 Romeo                                                    
+
+INVITADO-SQL> select * from emp2;
+
+EMPLEADO_ID  PUESTO_ID NOMBRE                                                   
+----------- ---------- --------------------                                     
+         10          1 Romeo                                                    
+
+INVITADO-SQL> connect paul0107/paul
+Connected.
+PAUL0107-SQL> select * from emp1;
+
+EMPLEADO_ID  PUESTO_ID NOMBRE                                                   
+----------- ---------- --------------------                                     
+         10          1 Romeo                                                    
+
+PAUL0107-SQL> select * from emp2;
+select * from emp2
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+PAUL0107-SQL> connect invitado/invitado;
+Connected.
+INVITADO-SQL> create or replace synonym emp3 for emp2;
+
+Synonym created.
+
+INVITADO-SQL> select * from emp3;
+
+EMPLEADO_ID  PUESTO_ID NOMBRE                                                   
+----------- ---------- --------------------                                     
+         10          1 Romeo                                                    
+
+INVITADO-SQL> exit
+SYS-SQL> !ls
+
+SYS-SQL> start ejercicios-tema7-parte2.sql
+Proporcione el Password del usuario  SYS
+Connected.
+Creando un nuevo usuario Tema 7 - Parte 2
+Proporcione usuario y password
+Enter value for usuario: paul01072
+Enter value for password: paul
+old   1: create user &&usuario identified by &&password quota unlimited on users
+new   1: create user paul01072 identified by paul quota unlimited on users
+
+User created.
+
+old   1: grant create session, create table, create sequence to &usuario
+new   1: grant create session, create table, create sequence to paul01072
+
+Grant succeeded.
+
+Connected.
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Sequence created.
+
+Configuracion creada con exito.
+Continuar con los ejercicios del tema.
+USER is "PAUL01072"
+PAUL01072-SQL> alter table libro drop constraint libro_pk;
+
+Table altered.
+
+PAUL01072-SQL> alter table libro add constraint libro_pk primary key
+  2  (libro_id);
+
+Table altered.
+
+PAUL01072-SQL> alter table historico_estatus_libro  add
+  2  libro_id not null constraint historico_estatus_libro_libro_id_fk
+  3  references libro(libro_id);
+
+Table altered.
+
+PAUL01072-SQL> exit
+

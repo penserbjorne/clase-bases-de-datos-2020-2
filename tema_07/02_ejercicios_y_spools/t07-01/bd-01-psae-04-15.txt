@@ -1,0 +1,147 @@
+SYS-SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+------------------                                                              
+15-APR-20                                                                       
+
+SYS-SQL> spool off
+SYS-SQL> create user paul0107 identified by paul quota unlimited
+  2  on users;
+
+User created.
+
+SYS-SQL> exit
+SYS-SQL> grant create session, create table to paul0107;
+
+Grant succeeded.
+
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> create table empleado_simple(
+  2  empleado_id number(10,0) not null,
+  3  nombre varchar2(40) not null);
+
+Table created.
+
+PAUL0107-SQL> create or replace directory tmp_dir as '/tmp/bases';
+create or replace directory tmp_dir as '/tmp/bases'
+*
+ERROR at line 1:
+ORA-01031: insufficient privileges 
+
+
+PAUL0107-SQL> exit
+SYS-SQL> create or replace directory tmp_dir as '/tmp/bases';
+
+Directory created.
+
+SYS-SQL> grant read, write on directory tmp_dir to paul0107;
+
+Grant succeeded.
+
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> spool /home/paul/Desktop/bd-01-psae-04-15.txt append
+
+PAUL0107-SQL> create table empleado_ext (
+  2  num_empleado number(10,0),
+  3  nombre varchar2(40),
+  4  fecha_nacimiento date)
+  5  organization external(
+  6  type oracle_loader
+  7  default directory tmp_dir
+  8  access parameters (
+  9    records delimited by newline
+ 10    badfile tmp_dir:'empleado_ext_bad.log'
+ 11    logfile tmp_dir:'empleado_ext.log'
+ 12    fields terminated by ','
+ 13    lrtrim
+ 14    missing field values are null
+ 15    (
+ 16      num_empleado, nombre, fecha_nacimiento date mask "dd/mm/yyyy"
+ 17    )
+ 18  )
+ 19  location ('empleado_ext.csv')
+ 20  )
+ 21  reject limit unlimited;
+
+Table created.
+
+PAUL0107-SQL> edit
+Wrote file afiedt.buf
+
+  1  create table empleado_ext (
+  2  num_empleado number(10,0),
+  3  nombre varchar2(40),
+  4  fecha_nacimiento date)
+  5  organization external(
+  6  type oracle_loader
+  7  default directory tmp_dir
+  8  access parameters (
+  9    records delimited by newline
+ 10    badfile tmp_dir:'empleado_ext_bad.log'
+ 11    logfile tmp_dir:'empleado_ext.log'
+ 12    fields terminated by ','
+ 13    lrtrim
+ 14    missing field values are null
+ 15    (
+ 16      num_empleado, nombre, fecha_nacimiento date mask "dd/mm/yyyy"
+ 17    )
+ 18  )
+ 19  location ('empleado_ext.csv')
+ 20  )
+ 21* reject limit unlimited
+PAUL0107-SQL> run
+  1  create table empleado_ext (
+  2  num_empleado number(10,0),
+  3  nombre varchar2(40),
+  4  fecha_nacimiento date)
+  5  organization external(
+  6  type oracle_loader
+  7  default directory tmp_dir
+  8  access parameters (
+  9    records delimited by newline
+ 10    badfile tmp_dir:'empleado_ext_bad.log'
+ 11    logfile tmp_dir:'empleado_ext.log'
+ 12    fields terminated by ','
+ 13    lrtrim
+ 14    missing field values are null
+ 15    (
+ 16      num_empleado, nombre, fecha_nacimiento date mask "dd/mm/yyyy"
+ 17    )
+ 18  )
+ 19  location ('empleado_ext.csv')
+ 20  )
+ 21* reject limit unlimited
+create table empleado_ext (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+PAUL0107-SQL> !mkdir /tmp/bases
+
+PAUL0107-SQL> !chmod 777 /tmp/bases
+
+PAUL0107-SQL> !touch /tmp/bases/empleado_ext.csv
+
+PAUL0107-SQL> !echo "1,paul,16/02/1994">/tmp/bases/empleado_ext.csv
+
+PAUL0107-SQL> !echo "2,sebastian,16/02/1994">>/tmp/bases/empleado_ext.csv
+
+PAUL0107-SQL> !cat /tmp/bases/empleado_ext.csv
+
+PAUL0107-SQL> select * from empleado_ext;
+
+NUM_EMPLEADO NOMBRE                                   FECHA_NACIMIENTO          
+------------ ---------------------------------------- ------------------        
+           1 paul                                     16-FEB-94                 
+           2 sebastian                                16-FEB-94                 
+
+PAUL0107-SQL> !ls /tmp/bases
+
+PAUL0107-SQL> !cat /tmp/bases/empleado_ext.log
+
+PAUL0107-SQL> -- TAREA Ejercicio 1.4
+PAUL0107-SQL> spool off
+PAUL0107-SQL> spool off

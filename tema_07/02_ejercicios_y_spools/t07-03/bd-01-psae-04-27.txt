@@ -1,0 +1,351 @@
+SYS-SQL> grant create sequence to paul0107;
+
+Grant succeeded.
+
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> create sequence my_seq
+  2  start with 100
+  3  increment by 10
+  4  maxvalue 200
+  5  minvalue 50
+  6  cycle
+  7  cache 5
+  8  ;
+
+Sequence created.
+
+PAUL0107-SQL> select my_seq.nextval from dual
+  2  ;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       100                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       110                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       120                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       130                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       140                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       150                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       160                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       170                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       180                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       190                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+       200                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        50                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        60                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        70                                                                      
+
+PAUL0107-SQL> select my_seq.nextval from dual;
+
+   NEXTVAL                                                                      
+----------                                                                      
+        80                                                                      
+
+PAUL0107-SQL> select my_seq.currval from dual;
+
+   CURRVAL                                                                      
+----------                                                                      
+        80                                                                      
+
+PAUL0107-SQL> select my_seq.currval from dual;
+
+   CURRVAL                                                                      
+----------                                                                      
+        80                                                                      
+
+PAUL0107-SQL> select my_seq.currval from dual;
+
+   CURRVAL                                                                      
+----------                                                                      
+        80                                                                      
+
+PAUL0107-SQL> --- Tarea inciso B de 1.14 Creacion de Secuencias
+PAUL0107-SQL> create table salon(
+  2  salon_id number(10,0) constraint salon_pk primary key
+  3  );
+
+Table created.
+
+PAUL0107-SQL> create table cliente(
+  2  cliente_id number(10,0) constraint cliente_pk primary key,
+  3  nombre varchar2(40)
+  4  );
+
+Table created.
+
+PAUL0107-SQL> create table boleto(
+  2  boleto_id number(10,0) constraint boleto_pk primary key,
+  3  num_asiento number(5,0),
+  4  seccion varchar2(5),
+  5  salon_id constraint boleto_salon_id_fk references salon(salon_id),
+  6  cliente_id constraint boleto_cliente_id_fk references cliente(cliente_id)
+  7  );
+
+Table created.
+
+PAUL0107-SQL> create unique index boleto_uix on boleto(
+  2  num_asiento, seccion, salon_id
+  3  );
+
+Index created.
+
+PAUL0107-SQL> create index boleto_cliente_id_ix on boleto(
+  2  cliente_id
+  3  );
+
+Index created.
+
+PAUL0107-SQL> create index cliente_nombre_fix on cliente(
+  2  lower(nombre)
+  3  );
+
+Index created.
+
+PAUL0107-SQL> desc user_indexes;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INDEX_NAME                                NOT NULL VARCHAR2(128)
+ INDEX_TYPE                                         VARCHAR2(27)
+ TABLE_OWNER                               NOT NULL VARCHAR2(128)
+ TABLE_NAME                                NOT NULL VARCHAR2(128)
+ TABLE_TYPE                                         VARCHAR2(11)
+ UNIQUENESS                                         VARCHAR2(9)
+ COMPRESSION                                        VARCHAR2(13)
+ PREFIX_LENGTH                                      NUMBER
+ TABLESPACE_NAME                                    VARCHAR2(30)
+ INI_TRANS                                          NUMBER
+ MAX_TRANS                                          NUMBER
+ INITIAL_EXTENT                                     NUMBER
+ NEXT_EXTENT                                        NUMBER
+ MIN_EXTENTS                                        NUMBER
+ MAX_EXTENTS                                        NUMBER
+ PCT_INCREASE                                       NUMBER
+ PCT_THRESHOLD                                      NUMBER
+ INCLUDE_COLUMN                                     NUMBER
+ FREELISTS                                          NUMBER
+ FREELIST_GROUPS                                    NUMBER
+ PCT_FREE                                           NUMBER
+ LOGGING                                            VARCHAR2(3)
+ BLEVEL                                             NUMBER
+ LEAF_BLOCKS                                        NUMBER
+ DISTINCT_KEYS                                      NUMBER
+ AVG_LEAF_BLOCKS_PER_KEY                            NUMBER
+ AVG_DATA_BLOCKS_PER_KEY                            NUMBER
+ CLUSTERING_FACTOR                                  NUMBER
+ STATUS                                             VARCHAR2(8)
+ NUM_ROWS                                           NUMBER
+ SAMPLE_SIZE                                        NUMBER
+ LAST_ANALYZED                                      DATE
+ DEGREE                                             VARCHAR2(40)
+ INSTANCES                                          VARCHAR2(40)
+ PARTITIONED                                        VARCHAR2(3)
+ TEMPORARY                                          VARCHAR2(1)
+ GENERATED                                          VARCHAR2(1)
+ SECONDARY                                          VARCHAR2(1)
+ BUFFER_POOL                                        VARCHAR2(7)
+ FLASH_CACHE                                        VARCHAR2(7)
+ CELL_FLASH_CACHE                                   VARCHAR2(7)
+ USER_STATS                                         VARCHAR2(3)
+ DURATION                                           VARCHAR2(15)
+ PCT_DIRECT_ACCESS                                  NUMBER
+ ITYP_OWNER                                         VARCHAR2(128)
+ ITYP_NAME                                          VARCHAR2(128)
+ PARAMETERS                                         VARCHAR2(1000)
+ GLOBAL_STATS                                       VARCHAR2(3)
+ DOMIDX_STATUS                                      VARCHAR2(12)
+ DOMIDX_OPSTATUS                                    VARCHAR2(6)
+ FUNCIDX_STATUS                                     VARCHAR2(8)
+ JOIN_INDEX                                         VARCHAR2(3)
+ IOT_REDUNDANT_PKEY_ELIM                            VARCHAR2(3)
+ DROPPED                                            VARCHAR2(3)
+ VISIBILITY                                         VARCHAR2(9)
+ DOMIDX_MANAGEMENT                                  VARCHAR2(14)
+ SEGMENT_CREATED                                    VARCHAR2(3)
+ ORPHANED_ENTRIES                                   VARCHAR2(3)
+ INDEXING                                           VARCHAR2(7)
+
+PAUL0107-SQL> select index_name from user_indexes where table_name = 'BOLETO';
+
+INDEX_NAME                                                                      
+--------------------------------------------------------------------------------
+BOLETO_PK                                                                       
+BOLETO_UIX                                                                      
+BOLETO_CLIENTE_ID_IX                                                            
+
+PAUL0107-SQL> select table_name from user_tables;
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+EMPLEADO_EXT                                                                    
+EMPLEADO_SIMPLE                                                                 
+CALCULO_SUELDO                                                                  
+EMPLEADO_EXT2                                                                   
+EMPLEADO_TEMP                                                                   
+PRUEBA_ALUMNO                                                                   
+INCIDENCIA                                                                      
+PUESTO                                                                          
+PUESTO_TC                                                                       
+EMPLEADO                                                                        
+EMPLEADO_TC                                                                     
+
+TABLE_NAME                                                                      
+--------------------------------------------------------------------------------
+EMPLEADO_TEMP_DR                                                                
+SALON                                                                           
+CLIENTE                                                                         
+BOLETO                                                                          
+
+15 rows selected.
+
+PAUL0107-SQL> spool off
+PAUL0107-SQL> connect sys as sysdba
+Connected.
+SYS-SQL> grant create view to paul0107;
+
+Grant succeeded.
+
+SYS-SQL> connect paul0107
+Connected.
+PAUL0107-SQL> create or replace view v_empleado as
+  2  select e.empleado_id, e.nombre, pe.porcentaje
+  3  from empleado e, pensionada_empleado pe
+  4  where e.empleado_id = pe.empleado_id
+  5  ;
+select e.empleado_id, e.nombre, pe.porcentaje
+                      *
+ERROR at line 2:
+ORA-00904: "E"."NOMBRE": invalid identifier 
+
+
+PAUL0107-SQL> alter table empleado add nombre varchar2(20);
+
+Table altered.
+
+PAUL0107-SQL> create or replace view v_empleado as
+  2  select e.empleado_id, e.nombre, pe.porcentaje
+  3  from empleado e, pensionada_empleado pe
+  4  where e.empleado_id = pe.empleado_id
+  5  ;
+
+View created.
+
+PAUL0107-SQL> select * from v_empleado;
+
+no rows selected
+
+PAUL0107-SQL> desc puesto
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PUESTO_ID                                 NOT NULL NUMBER(2)
+ NIVEL                                     NOT NULL CHAR(1)
+ CLAVE                                     NOT NULL VARCHAR2(3)
+ SUELDO                                    NOT NULL NUMBER(8,2)
+
+PAUL0107-SQL> insert into puesto values(1,'a','p01',5000);
+
+1 row created.
+
+PAUL0107-SQL> desc empleado
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLEADO_ID                               NOT NULL NUMBER(10)
+ PUESTO_ID                                 NOT NULL NUMBER(2)
+ NOMBRE                                             VARCHAR2(20)
+
+PAUL0107-SQL> insert into empleado values(10,1,'Romeo');
+
+1 row created.
+
+PAUL0107-SQL> desc pensionada
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PENSIONADA_ID                             NOT NULL NUMBER(10)
+ NOMBRE                                    NOT NULL VARCHAR2(40)
+
+PAUL0107-SQL> insert into pensionada values(100, 'Julieta');
+
+1 row created.
+
+PAUL0107-SQL> desc pensionada_empleado
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PENSIONADA_ID                             NOT NULL NUMBER(10)
+ EMPLEADO_ID                               NOT NULL NUMBER(10)
+ PORCENTAJE                                NOT NULL NUMBER(5,2)
+
+PAUL0107-SQL> insert into pensionada_empleado values(100,10,50);
+
+1 row created.
+
+PAUL0107-SQL> select * from v_empleado;
+
+EMPLEADO_ID NOMBRE               PORCENTAJE                                     
+----------- -------------------- ----------                                     
+         10 Romeo                        50                                     
+
+PAUL0107-SQL> spool off
