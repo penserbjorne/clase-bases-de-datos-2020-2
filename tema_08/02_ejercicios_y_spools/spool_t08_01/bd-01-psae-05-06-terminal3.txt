@@ -1,0 +1,200 @@
+SYS-SQL> connect paul0801
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+Warning: You are no longer connected to ORACLE.
+-SQL> connect paul0801
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+-SQL> connect paul0108
+Connected.
+PAUL0108-SQL> select * from prod;
+
+no rows selected
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> update prod set cantidad = 400 where id = 1001;
+
+1 row updated.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        400
+
+PAUL0108-SQL> commitM
+SP2-0042: unknown command "commitM" - rest of line ignored.
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> update prod set cantidad = 500 where id = 1001;
+
+1 row updated.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        500
+
+PAUL0108-SQL> update prod set cantidad = 600 where id = 1001;
+
+1 row updated.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> insert into prod values(1002,600);
+
+1 row created.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+      1002        600
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> update set cantidad = 800 where id = 1001;
+update set cantidad = 800 where id = 1001
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+PAUL0108-SQL> update prod set cantidad = 800 where id = 1001;
+
+1 row updated.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        800
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        800
+
+PAUL0108-SQL> select ocupado from concierto where id = 1;
+select ocupado from concierto where id = 1
+                                    *
+ERROR at line 1:
+ORA-00904: "ID": invalid identifier
+
+
+PAUL0108-SQL> select ocupado from concierto where num_asiento = 1;
+
+   OCUPADO
+----------
+         0
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre = 'c2' where num_asiento = 1;
+
+1 row updated.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          0
+          3          0
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          0
+          3          0
+
+PAUL0108-SQL> select ocupado from concierto where num_asiento = 2 for update;
+
+   OCUPADO
+----------
+         1
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          1 c3
+          3          0
+
+PAUL0108-SQL> rollback;
+
+Rollback complete.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          1 c3
+          3          0
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre = 'c6' where num_asiento = 3 and ocupado = 0;
+
+0 rows updated.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          1 c3
+          3          1 c5
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre = 'c6' where num_asiento = 3 and ocupado = 0;
+
+0 rows updated.
+
+PAUL0108-SQL> --- terminal 3
+PAUL0108-SQL> exit

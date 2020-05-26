@@ -1,0 +1,124 @@
+SYS-SQL> desc v$transaction;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ADDR                                               RAW(8)
+ XIDUSN                                             NUMBER
+ XIDSLOT                                            NUMBER
+ XIDSQN                                             NUMBER
+ UBAFIL                                             NUMBER
+ UBABLK                                             NUMBER
+ UBASQN                                             NUMBER
+ UBAREC                                             NUMBER
+ STATUS                                             VARCHAR2(16)
+ START_TIME                                         VARCHAR2(20)
+ START_SCNB                                         NUMBER
+ START_SCNW                                         NUMBER
+ START_UEXT                                         NUMBER
+ START_UBAFIL                                       NUMBER
+ START_UBABLK                                       NUMBER
+ START_UBASQN                                       NUMBER
+ START_UBAREC                                       NUMBER
+ SES_ADDR                                           RAW(8)
+ FLAG                                               NUMBER
+ SPACE                                              VARCHAR2(3)
+ RECURSIVE                                          VARCHAR2(3)
+ NOUNDO                                             VARCHAR2(3)
+ PTX                                                VARCHAR2(3)
+ NAME                                               VARCHAR2(256)
+ PRV_XIDUSN                                         NUMBER
+ PRV_XIDSLT                                         NUMBER
+ PRV_XIDSQN                                         NUMBER
+ PTX_XIDUSN                                         NUMBER
+ PTX_XIDSLT                                         NUMBER
+ PTX_XIDSQN                                         NUMBER
+ DSCN-B                                             NUMBER
+ DSCN-W                                             NUMBER
+ USED_UBLK                                          NUMBER
+ USED_UREC                                          NUMBER
+ LOG_IO                                             NUMBER
+ PHY_IO                                             NUMBER
+ CR_GET                                             NUMBER
+ CR_CHANGE                                          NUMBER
+ START_DATE                                         DATE
+ DSCN_BASE                                          NUMBER
+ DSCN_WRAP                                          NUMBER
+ START_SCN                                          NUMBER
+ DEPENDENT_SCN                                      NUMBER
+ XID                                                RAW(8)
+ PRV_XID                                            RAW(8)
+ PTX_XID                                            RAW(8)
+ CON_ID                                             NUMBER
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+no rows selected
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0700150032030000 05/13/20 19:46:02
+0700170031030000 05/13/20 19:46:02
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0A0011003A040000 05/13/20 19:46:48
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0A0011003A040000 05/13/20 19:46:48
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+no rows selected
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0B00090084000000 05/13/20 20:03:24
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+09000D0074040000 05/13/20 22:29:24
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+no rows selected
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0A0010004C040000 05/13/20 22:35:03
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+09001A0074040000 05/13/20 22:55:25
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+no rows selected
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+050004004E040000 05/13/20 23:14:43
+
+SYS-SQL> select xid, start_time from v$transaction;
+
+XID              START_TIME
+---------------- --------------------
+0100090050030000 05/13/20 23:15:19
+
+SYS-SQL> --- terminal 2
+SYS-SQL> exit

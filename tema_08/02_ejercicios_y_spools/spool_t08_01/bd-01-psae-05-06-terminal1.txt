@@ -1,0 +1,422 @@
+SYS-SQL> connect paul0108
+Connected.
+PAUL0108-SQL> create table palabra(id number, palabra varchar2(20));
+
+Table created.
+
+PAUL0108-SQL> insert into palabra values (1, "Hola");
+insert into palabra values (1, "Hola")
+                               *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+PAUL0108-SQL> insert into palabra values (1, 'Hola');
+
+1 row created.
+
+PAUL0108-SQL> insert into palabra values (2, 'como');
+
+1 row created.
+
+PAUL0108-SQL> insert into palabra values (3, 'estas');
+
+1 row created.
+
+PAUL0108-SQL> savepoint sv1;
+
+Savepoint created.
+
+PAUL0108-SQL> insert into palabra values (4, 'estoy');
+
+1 row created.
+
+PAUL0108-SQL> insert into palabra values (5, 'bien');
+
+1 row created.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA
+---------- --------------------
+         1 Hola
+         2 como
+         3 estas
+         4 estoy
+         5 bien
+
+PAUL0108-SQL> rollback to savepoint sv1;
+
+Rollback complete.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA
+---------- --------------------
+         1 Hola
+         2 como
+         3 estas
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> delecte from palabra;
+SP2-0734: unknown command beginning "delecte fr..." - rest of line ignored.
+PAUL0108-SQL> delete from palabra;
+
+3 rows deleted.
+
+PAUL0108-SQL> select * from palabra;
+
+no rows selected
+
+PAUL0108-SQL> rollback;
+
+Rollback complete.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA
+---------- --------------------
+         1 Hola
+         2 como
+         3 estas
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA
+---------- --------------------
+         1 Hola
+         2 como
+         3 estas
+
+PAUL0108-SQL> delete from palabra where id = 3;
+
+1 row deleted.
+
+PAUL0108-SQL> alter table palabra add es_valida number(1,0);
+
+Table altered.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA               ES_VALIDA
+---------- -------------------- ----------
+         1 Hola
+         2 como
+
+PAUL0108-SQL> rollback;
+
+Rollback complete.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA               ES_VALIDA
+---------- -------------------- ----------
+         1 Hola
+         2 como
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA               ES_VALIDA
+---------- -------------------- ----------
+         1 Hola
+         2 como
+
+PAUL0108-SQL> insert into palabra values (6, 'yo',1);
+
+1 row created.
+
+PAUL0108-SQL> select * from palabra;
+
+        ID PALABRA               ES_VALIDA
+---------- -------------------- ----------
+         1 Hola
+         2 como
+         6 yo                            1
+
+PAUL0108-SQL> create table prod(id number, cantidad number);
+
+Table created.
+
+PAUL0108-SQL> insert into prod values(1001,300);
+
+1 row created.
+
+PAUL0108-SQL> delete from prod where id = 1001;
+
+1 row deleted.
+
+PAUL0108-SQL> select * from prod;
+
+no rows selected
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> insert into prod values(1001,300);
+
+1 row created.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> set transaction isolation level serializable;
+
+Transaction set.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        300
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        500
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        500
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> set transaction isolation level serializable;
+
+Transaction set.
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+      1002        600
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+      1002        600
+
+PAUL0108-SQL> select * from prod where id = 1002;
+
+        ID   CANTIDAD
+---------- ----------
+      1002        600
+
+PAUL0108-SQL> delete from prod where id = 1002;
+
+1 row deleted.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod where cantidad = 600;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        600
+
+PAUL0108-SQL> update prod set cantidad = 700 where id = 1001;
+
+1 row updated.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        700
+
+PAUL0108-SQL> select * from prod;
+
+        ID   CANTIDAD
+---------- ----------
+      1001        800
+
+PAUL0108-SQL> create table concierto(num_asiento number, ocupado number, nombre varchar2(10);
+create table concierto(num_asiento number, ocupado number, nombre varchar2(10)
+                                                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+PAUL0108-SQL> create table concierto(num_asiento number, ocupado number, nombre varchar2(10));
+
+Table created.
+
+PAUL0108-SQL> insert into concierto values (1,0,null);
+
+1 row created.
+
+PAUL0108-SQL> insert into concierto values (2,0,null);
+
+1 row created.
+
+PAUL0108-SQL> insert into concierto values (3,0,null);
+
+1 row created.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          0
+          2          0
+          3          0
+
+PAUL0108-SQL> select ocupado from concierto where num_asiento = 1;
+
+   OCUPADO
+----------
+         0
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre ='c1' where num_asiento = 1;
+
+1 row updated.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c1
+          2          0
+          3          0
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c1
+          2          0
+          3          0
+
+PAUL0108-SQL> select * from concierto;
+
+NUM_ASIENTO    OCUPADO NOMBRE
+----------- ---------- ----------
+          1          1 c2
+          2          0
+          3          0
+
+PAUL0108-SQL> select ocupado from concierto where num_asiento = 2 for update;
+
+   OCUPADO
+----------
+         0
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre ='c3' where num_asiento = 2;
+
+1 row updated.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre ='c5' where num_asiento = 3 and ocupado = 0;;
+update concierto set ocupado = 1, nombre ='c5' where num_asiento = 3 and ocupado = 0;
+                                                                                    *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+PAUL0108-SQL> update concierto set ocupado = 1, nombre ='c5' where num_asiento = 3 and ocupado = 0;
+
+1 row updated.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> ---terminal 1
+PAUL0108-SQL> exit

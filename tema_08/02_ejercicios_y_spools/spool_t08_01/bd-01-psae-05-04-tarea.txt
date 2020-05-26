@@ -1,0 +1,58 @@
+PAUL0108-SQL> select * from dvd;
+
+    DVD_ID TITULO                                       PRECIO T
+---------- ---------------------------------------- ---------- -
+FECHA_RECEPCION    FECHA_REGISTRO
+------------------ ------------------
+         1 infinity                                      89.34 P
+10-OCT-16          04-MAY-20
+
+
+PAUL0108-SQL> select * from pelicula;
+
+    DVD_ID SINOPSIS
+---------- ----------------------------------------
+         1 accion
+
+PAUL0108-SQL> select * from musical;
+
+no rows selected
+
+PAUL0108-SQL> desc musical;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DVD_ID                                    NOT NULL NUMBER(10)
+ ARTISTA                                   NOT NULL VARCHAR2(40)
+
+PAUL0108-SQL> insert into musical values(1,'Yiruma');
+
+1 row created.
+
+PAUL0108-SQL> update dvd set tiutlo = 'Infinity Piano', tipo = 'M' where dvd_id = 1;
+update dvd set tiutlo = 'Infinity Piano', tipo = 'M' where dvd_id = 1
+               *
+ERROR at line 1:
+ORA-00904: "TIUTLO": invalid identifier
+
+
+PAUL0108-SQL> update dvd set titulo = 'Infinity Piano', tipo = 'M' where dvd_id = 1;
+
+1 row updated.
+
+PAUL0108-SQL> select * from dvd;
+
+    DVD_ID TITULO                                       PRECIO T
+---------- ---------------------------------------- ---------- -
+FECHA_RECEPCION    FECHA_REGISTRO
+------------------ ------------------
+         1 Infinity Piano                                89.34 M
+10-OCT-16          04-MAY-20
+
+
+PAUL0108-SQL> select * from musical;
+
+    DVD_ID ARTISTA
+---------- ----------------------------------------
+         1 Yiruma
+
+PAUL0108-SQL> exit

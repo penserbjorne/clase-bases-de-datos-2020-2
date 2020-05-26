@@ -1,0 +1,269 @@
+SYS-SQL> startup
+ORACLE instance started.
+
+Total System Global Area  805306176 bytes                                       
+Fixed Size                  8662848 bytes                                       
+Variable Size             314572800 bytes                                       
+Database Buffers          473956352 bytes                                       
+Redo Buffers                8114176 bytes                                       
+Database mounted.
+Database opened.
+SYS-SQL> exit
+PAUL0108-SQL> start ejercicios-tema8-s01.sql
+Proporcione el Password del usuario  SYS
+Connected.
+Creando un nuevo usuario Tema 8
+Proporcione usuario y password
+Enter value for usuario: paul0108
+Enter value for password: paul
+old   1: create user &&usuario identified by &&password quota unlimited on users
+new   1: create user paul0108 identified by paul quota unlimited on users
+create user paul0108 identified by paul quota unlimited on users
+            *
+ERROR at line 1:
+ORA-01920: user name 'PAUL0108' conflicts with another user or role name 
+
+
+SYS-SQL> connect paul0108
+Connected.
+PAUL0108-SQL> insert into dvd(dvd_id, titulo, precio, tipo, fecha_recepcion, fecha_registro)
+  2  values(seq_dvd.nextval, 'infinity', 89.34, 'P', to_date('10/10/2016 5:22', 'dd/mm/yyyy hh24:mi'), default)
+  3  ;
+
+1 row created.
+
+PAUL0108-SQL> select * from dvd;
+
+    DVD_ID TITULO                                       PRECIO T                
+---------- ---------------------------------------- ---------- -                
+FECHA_RECEPCION    FECHA_REGISTRO                                               
+------------------ ------------------                                           
+         1 infinity                                      89.34 P                
+10-OCT-16          04-MAY-20                                                    
+                                                                                
+
+PAUL0108-SQL> connect as sysdba
+Enter user-name: system
+ERROR:
+ORA-01017: invalid username/password; logon denied 
+
+
+Warning: You are no longer connected to ORACLE.
+-SQL> connect sys as sysdba
+Connected.
+SYS-SQL> show parameter nls_date_format;
+
+NAME                                 TYPE        VALUE                          
+------------------------------------ ----------- ------------------------------ 
+nls_date_format                      string      DD-MON-RR                      
+SYS-SQL> connect paul0108
+Connected.
+PAUL0108-SQL> insert into pelicula(dvd_id, sinopsis)
+  2  values(seq_dvd.currval, 'accion');
+values(seq_dvd.currval, 'accion')
+       *
+ERROR at line 2:
+ORA-08002: sequence SEQ_DVD.CURRVAL is not yet defined in this session 
+
+
+PAUL0108-SQL> edit
+Wrote file afiedt.buf
+
+  1  insert into pelicula(dvd_id, sinopsis)
+  2* values((select pelicula_id from dvd where titulo = 'infinity'), 'accion')
+PAUL0108-SQL> run
+  1  insert into pelicula(dvd_id, sinopsis)
+  2* values((select pelicula_id from dvd where titulo = 'infinity'), 'accion')
+values((select pelicula_id from dvd where titulo = 'infinity'), 'accion')
+               *
+ERROR at line 2:
+ORA-00904: "PELICULA_ID": invalid identifier 
+
+
+PAUL0108-SQL> edit
+Wrote file afiedt.buf
+
+  1  insert into pelicula(dvd_id, sinopsis)
+  2* values((select dvd_id from dvd where titulo = 'infinity'), 'accion')
+PAUL0108-SQL> run
+  1  insert into pelicula(dvd_id, sinopsis)
+  2* values((select dvd_id from dvd where titulo = 'infinity'), 'accion')
+
+1 row created.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> create table cliente as
+  2  select cliente_id, nombre, ap_paterno, ap_materno, email, fecha_nacimiento
+  3  from cliente_import
+  4  ;
+
+Table created.
+
+PAUL0108-SQL> desc cliente;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENTE_ID                                NOT NULL NUMBER(10)
+ NOMBRE                                    NOT NULL VARCHAR2(40)
+ AP_PATERNO                                NOT NULL VARCHAR2(40)
+ AP_MATERNO                                         VARCHAR2(40)
+ EMAIL                                     NOT NULL VARCHAR2(40)
+ FECHA_NACIMIENTO                          NOT NULL DATE
+
+PAUL0108-SQL> select * from cliente;
+
+CLIENTE_ID NOMBRE                                                               
+---------- ----------------------------------------                             
+AP_PATERNO                                                                      
+----------------------------------------                                        
+AP_MATERNO                                                                      
+----------------------------------------                                        
+EMAIL                                    FECHA_NACIMIENTO                       
+---------------------------------------- ------------------                     
+         1 DONOVAN                                                              
+CASTANEDA                                                                       
+                                                                                
+Donov.CASTAN3606@live.com                22-JUN-42                              
+                                                                                
+
+CLIENTE_ID NOMBRE                                                               
+---------- ----------------------------------------                             
+AP_PATERNO                                                                      
+----------------------------------------                                        
+AP_MATERNO                                                                      
+----------------------------------------                                        
+EMAIL                                    FECHA_NACIMIENTO                       
+---------------------------------------- ------------------                     
+         2 JANIYAH                                                              
+MCCRAY                                                                          
+MCCRAY                                                                          
+Jan.MCC9414@live.com                     10-JUL-14                              
+                                                                                
+
+CLIENTE_ID NOMBRE                                                               
+---------- ----------------------------------------                             
+AP_PATERNO                                                                      
+----------------------------------------                                        
+AP_MATERNO                                                                      
+----------------------------------------                                        
+EMAIL                                    FECHA_NACIMIENTO                       
+---------------------------------------- ------------------                     
+         3 issac                                                                
+BLEVINS                                                                         
+BLEVINS                                                                         
+Is.BLEVIN2632@gmail.com                  16-MAY-11                              
+                                                                                
+
+CLIENTE_ID NOMBRE                                                               
+---------- ----------------------------------------                             
+AP_PATERNO                                                                      
+----------------------------------------                                        
+AP_MATERNO                                                                      
+----------------------------------------                                        
+EMAIL                                    FECHA_NACIMIENTO                       
+---------------------------------------- ------------------                     
+         4 THEODORE                                                             
+ANTHONY                                                                         
+ANTHONY                                                                         
+Theodor.ANTHON6698@mail2web.com          31-JUL-65                              
+                                                                                
+
+CLIENTE_ID NOMBRE                                                               
+---------- ----------------------------------------                             
+AP_PATERNO                                                                      
+----------------------------------------                                        
+AP_MATERNO                                                                      
+----------------------------------------                                        
+EMAIL                                    FECHA_NACIMIENTO                       
+---------------------------------------- ------------------                     
+         5 ayden                                                                
+PAYNE                                                                           
+PAYNE                                                                           
+Ayd.PAYNE3872@gmail.com                  21-AUG-11                              
+                                                                                
+
+PAUL0108-SQL> update cliente set nombre = upper(nombre)
+  2  where email like '%gmail.com';
+
+2 rows updated.
+
+PAUL0108-SQL> update cliente set fecha_nacimiento = fecha_nacimiento+1
+  2  where to_char(fecha_nacimiento, 'mm') = '07';
+
+2 rows updated.
+
+PAUL0108-SQL> update ciente set ap_materno = 'NA'
+  2  where ap_materno is null;
+update ciente set ap_materno = 'NA'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+PAUL0108-SQL> edit
+Wrote file afiedt.buf
+
+  1  update cliente set ap_materno = 'NA'
+  2* where ap_materno is null
+PAUL0108-SQL> run
+  1  update cliente set ap_materno = 'NA'
+  2* where ap_materno is null
+
+1 row updated.
+
+PAUL0108-SQL> insert into cliente(cliente_id, nombre, ap_paterno, ap_materno, email, fecha_nacimiento)
+  2  values(seq_cliente.nextval, 'luis', 'hernandez', 'perez' 'm@m.com', sysdate-7300);
+values(seq_cliente.nextval, 'luis', 'hernandez', 'perez' 'm@m.com', sysdate-7300)
+                                                         *
+ERROR at line 2:
+ORA-00917: missing comma 
+
+
+PAUL0108-SQL> values(seq_cliente.nextval, 'luis', 'hernandez', 'perez', 'm@m.com', sysdate-7300);
+SP2-0734: unknown command beginning "values(seq..." - rest of line ignored.
+PAUL0108-SQL> insert into cliente(cliente_id, nombre, ap_paterno, ap_materno, email, fecha_nacimiento)
+  2  values(seq_cliente.nextval, 'luis', 'hernandez', 'perez', 'm@m.com', sysdate-7300);
+
+1 row created.
+
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> merge into cliente_import ci using cliente c
+  2  on (ci.cliente_id = c.cliente_id)
+  3  when matched then update
+  4  set ci.nombre = c.nombre, ci.ap_paterno = c.ap_paterno, ci.email = c.email, ci.fecha_nacimiento = c.fecha_nacimiento, ci.ap_materno = c.ap_materno
+  5  when not matched then insert
+  6  (ci.cliente_id, ci.nombre, ci.ap_paterno, ci.ap_materno, ci.email, ci.fecha_nacimiento)
+  7  values (c.cliente_id, c.nombre, c.ap_paterno, c.ap_materno, c.email, c.fecha_nacimiento);
+
+6 rows merged.
+
+PAUL0108-SQL> -- Ejercicio 4 de tarea
+PAUL0108-SQL> commit;
+
+Commit complete.
+
+PAUL0108-SQL> create table cliente_export
+  2  as select * from cliente where 0 = 1;
+
+Table created.
+
+PAUL0108-SQL> desc cliente_export;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CLIENTE_ID                                NOT NULL NUMBER(10)
+ NOMBRE                                    NOT NULL VARCHAR2(40)
+ AP_PATERNO                                NOT NULL VARCHAR2(40)
+ AP_MATERNO                                         VARCHAR2(40)
+ EMAIL                                     NOT NULL VARCHAR2(40)
+ FECHA_NACIMIENTO                          NOT NULL DATE
+
+PAUL0108-SQL> select * from cliente_export;
+
+no rows selected
+
+PAUL0108-SQL> exit
