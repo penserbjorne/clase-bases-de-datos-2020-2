@@ -2,7 +2,6 @@
 --@Fecha creación:  dd/mm/yyyy
 --@Descripción:    Práctica 09 complementaria - DDL
 
-
 create table aeropuerto(
     id                  number(8, 0)      not null,
     clave               varchar2(10)      not null,
@@ -25,6 +24,3 @@ create table aeropuerto(
     constraint aeropuerto_pk primary key (id)
 )
 ;
-
-
-

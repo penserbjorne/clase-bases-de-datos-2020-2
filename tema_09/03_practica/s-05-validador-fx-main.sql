@@ -13,12 +13,12 @@ define p_archivo_validador ='s-05p-validador-fx-consultas.plb'
 --
 -- Nombre del usuario empleado en esta práctica
 --
-define p_usuario='jrc_p0903_fx'
+define p_usuario='paap_p0903_fx'
 
 --
 -- Password del usuario empleado en esta práctica
 --
-define p_usuario_pass='jorge'
+define p_usuario_pass='paap'
 
 --
 -- Password del usuario sys
@@ -28,7 +28,7 @@ define p_sys_password='system'
 --
 -- Nombre del archivo de respuestas
 --
-define p_archivo_respuestas='s-04-fx-respuestas.sql'
+define p_archivo_respuestas='s-07-fx-respuestas.sql'
 
 --Invocando validador
 whenever sqlerror exit rollback
