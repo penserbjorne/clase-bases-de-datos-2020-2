@@ -29,9 +29,10 @@ PROMPT ### Ejercicio 2
 
 CREATE TABLE consulta_2 AS
     SELECT id, nombre, municipio, region_iso,
-        TRUNC(elevacion/3.281, 3) as ELEVACION_METROS
+        elevacion * 3.281 as ELEVACION_METROS
         FROM aeropuerto
-        WHERE tipo='large_airport';
+        WHERE tipo='large_airport'
+        ORDER BY ELEVACION_METROS DESC;
         
 -- SELECT * FROM consulta_2;
 
@@ -91,6 +92,10 @@ CREATE TABLE consulta_4 AS
 
 -- SELECT * FROM consulta_4;
 
+-- select * from CONSULTA_4;
+-- select * from CONSULTA_R4;
+-- select * from CONSULTA_4 minus select * from CONSULTA_R4;
+
 /* Ejercicio 5 */
 
 PROMPT ### Ejercicio 5
@@ -99,13 +104,17 @@ PROMPT ### Ejercicio 5
 
 CREATE TABLE consulta_5 AS
     SELECT id, clave, nombre, municipio, codigo_gps, codigo_iata,
-        TO_CHAR(ultima_revision, 'FMday"," month dd "of" yyyy "at" hh24:mm:ss')
+        TO_CHAR(ultima_revision, 'FMday"," month dd "of" yyyy "at" hh24:mi:ss')
         AS ULTIMA_REVISION
         FROM aeropuerto
         WHERE
             region_iso = 'MX-CHP';
 
 -- SELECT * FROM consulta_5;
+
+-- select * from CONSULTA_5;
+-- select * from CONSULTA_R5;
+-- select * from CONSULTA_5 minus select * from CONSULTA_R5;
 
 /* Ejercio 6 */
 
@@ -124,6 +133,8 @@ CREATE TABLE consulta_6 AS
             TO_CHAR(ultima_revision, 'dd/mm') = '10/12' OR
             TO_CHAR(ultima_revision, 'dd/mm') = '15/12'
         ORDER BY FALTAN DESC;
+
+ALTER SESSION SET nls_language=american;
 
 -- SELECT * FROM consulta_6;
 
@@ -159,7 +170,7 @@ CREATE TABLE consulta_8 AS
             || '-'
             || SUBSTR(region_iso,4, 3)
             || '-'
-            || SUBSTR(UPPER(municipio), (LENGTH(UPPER(municipio)) - 2), 2)
+            || SUBSTR(UPPER(municipio), (LENGTH(UPPER(municipio)) - 1), 2)
         )
         AS FOLIO,
         region_iso, municipio, wikipedia_link
@@ -169,11 +180,12 @@ CREATE TABLE consulta_8 AS
             
 -- SELECT * FROM consulta_8;
 
+
 /* Ejercicio 9 */
 
 PROMPT ### Ejercicio 9
 
--- DROP TABLE consulta_9 CASCADE CONSTRAINTS;
+--DROP TABLE consulta_9 CASCADE CONSTRAINTS;
 
 CREATE TABLE consulta_9 AS
     SELECT
@@ -184,7 +196,7 @@ CREATE TABLE consulta_9 AS
             || '-'
             || SUBSTR(
                         NVL(UPPER(municipio), 'NNNN'),
-                        (LENGTH( NVL(UPPER(municipio), 'NNNN') ) - 2),
+                        (LENGTH( NVL(UPPER(municipio), 'NNNN') ) - 1),
                         2
                     )
         )
@@ -200,7 +212,7 @@ CREATE TABLE consulta_9 AS
 
 PROMPT ### Ejercicio 10
 
--- DROP TABLE consulta_10 CASCADE CONSTRAINTS;
+--DROP TABLE consulta_10 CASCADE CONSTRAINTS;
 
 CREATE TABLE consulta_10 AS
     SELECT nombre,
@@ -210,7 +222,7 @@ CREATE TABLE consulta_10 AS
             NULLIF(
                     INSTR(pagina_web, '?', 1, 1),
                     0
-                ),
+                ) + 1,
             LENGTH(pagina_web)
             )
         AS PARAMETROS
