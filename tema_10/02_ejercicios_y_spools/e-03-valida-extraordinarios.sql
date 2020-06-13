@@ -1,5 +1,5 @@
 --@Autor(es):       Paul Aguilar
---@Fecha creación:  07/06/2020
+--@Fecha creación:  08/06/2020
 --@Descripción:     Valida extraordinarios
 
 CREATE OR REPLACE TRIGGER tr_valida_extraordinarios

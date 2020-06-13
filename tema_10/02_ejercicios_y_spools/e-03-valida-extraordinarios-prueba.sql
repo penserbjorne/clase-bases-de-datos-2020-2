@@ -93,7 +93,8 @@ begin
 	and asignatura_id = 1;
     -- si se llega a este punto, el trigger no esta lanzando el error que deberia
     -- por lo tanto, la prueba debe fallar
-    raise_application_error(-20001, 'Error, el trigger permite operaciones delete;
+    raise_application_error(-20001, 'Error, el trigger permite operaciones delete');
+    RAISE_APPLICATION_ERROR(-20011, 'No se permiten eliminar extraordinarios');
 exception
 	when others then
     v_codigo := sqlcode;

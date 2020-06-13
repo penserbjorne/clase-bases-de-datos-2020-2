@@ -7,18 +7,18 @@ define p_archivo_validador ='s-05p-validador-consultas.plb'
 
 --Modificar las siguientes variables en caso de ser necesario.
 --En scripts reales no debeń incluirse passwords. Solo se hace para
---propósitos de pruebas y evitar escribirlos cada vez que se quiera ejecutar 
+--propósitos de pruebas y evitar escribirlos cada vez que se quiera ejecutar
 --el proceso de validación de la práctica (propósitos académicos).
 
 --
 -- Nombre del usuario empleado en esta práctica
 --
-define p_usuario='jrc_p1001_subastas'
+define p_usuario='paap_p1001_subastas'
 
 --
 -- Password del usuario empleado en esta práctica
 --
-define p_usuario_pass='jorge'
+define p_usuario_pass='paap'
 
 --
 -- Password del usuario sys
