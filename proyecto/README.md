@@ -10,9 +10,9 @@
 
 Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 
-- [ ] Construcción del modelo ER (Opcional)
-- [ ] Construcción del modelo relacional.
-- [ ] Script `s-01-usuarios.sql`
+- [x] Construcción del modelo ER (Opcional)
+- [x] Construcción del modelo relacional.
+- [x] Script `s-01-usuarios.sql`
 - [ ] Script `s-02-entidades.sql`
 - [ ] Script `s-03-tablas-temporales.sql`
 - [ ] Script `s-04-tablas-externas.sql`
