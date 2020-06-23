@@ -38,11 +38,11 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 
 Rvisar el documento [01_asignacion-pet-home.pdf](./01_asignacion-pet-home.pdf).
 
-- [ ] Revisión del modelo relacional: Implementación correcta de las reglas de
+- [x] Revisión del modelo relacional: Implementación correcta de las reglas de
   negocio, notación y convenciones correctas, cardinalidades correctas
-- [ ] Definición de usuario admin e invitado
-- [ ] Definición de tablas con todos los tipos de constraints
-- [ ] Columnas virtuales, uso de default
+- [x] Definición de usuario admin e invitado
+- [x] Definición de tablas con todos los tipos de constraints
+- [x] Columnas virtuales, uso de default
 - [ ] Uso de tablas temporales con escenarios de uso adecuados
 - [ ] Uso de tablas externas con escenarios de uso adecuados
 - [ ] Diseño de secuencias y columnas de tipo Identity

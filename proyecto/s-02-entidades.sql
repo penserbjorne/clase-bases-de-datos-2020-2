@@ -42,9 +42,9 @@ CREATE TABLE centro_operativo(
   direcion            VARCHAR2(100)    NOT NULL,
   latitud             NUMBER(9, 6)     NOT NULL,
   longitud            NUMBER(9, 6)     NOT NULL,
-  es_refugio          NUMBER(1, 0)     NOT NULL,
-  es_clinica          NUMBER(1, 0)     NOT NULL,
-  es_oficina          NUMBER(1, 0)     NOT NULL,
+  es_refugio          NUMBER(1, 0)     DEFAULT  0,
+  es_clinica          NUMBER(1, 0)     DEFAULT  0,
+  es_oficina          NUMBER(1, 0)     DEFAULT  0,
   gerente             NUMBER(10, 0)    NOT NULL,
   CONSTRAINT centro_operativo_pk PRIMARY KEY (codigo_centro_id),
   CONSTRAINT centro_operativo_es_refugio_chk CHECK( es_refugio IN (0,1) ),
@@ -58,7 +58,7 @@ CREATE TABLE refugio(
   num_registro        VARCHAR2(20)     NOT NULL,
   capacidad_max       NUMBER(10, 0)    NOT NULL,
   logo_img            BLOB,
-  lema                VARCHAR2(100)    NOT NULL,
+  lema                VARCHAR2(100)    DEFAULT 'Proteger, cuidar y amar',
   CONSTRAINT refugio_pk PRIMARY KEY (codigo_centro_id),
   CONSTRAINT refugio_codigo_centro_fk FOREIGN KEY (codigo_centro_id)
     REFERENCES centro_operativo(codigo_centro_id),
@@ -70,6 +70,7 @@ CREATE TABLE clinica(
   codigo_centro_id    VARCHAR2(5)     NOT NULL,
   hora_inicio         DATE            NOT NULL,
   hora_fin            DATE            NOT NULL,
+  horas_servicio      AS  (TO_CHAR(hora_fin-hora_inicio, 'hh:mm')) VIRTUAL,
   tel_clientes        VARCHAR2(11),
   tel_emergencias     VARCHAR2(11),
   CONSTRAINT clinica_pk PRIMARY KEY (codigo_centro_id),
@@ -103,15 +104,15 @@ PROMPT ### Creando tabla empleado ###
 CREATE TABLE empleado(
   empleado_id          NUMBER(10, 0)    NOT NULL,
   curp                 VARCHAR2(18)     NOT NULL,
-  fecha_ingreso        DATE             NOT NULL,
+  fecha_ingreso        DATE             DEFAULT  SYSDATE,
   email                VARCHAR2(50)     NOT NULL,
   nombre               VARCHAR2(50)     NOT NULL,
   apellido_pat         VARCHAR2(50)     NOT NULL,
   apellido_mat         VARCHAR2(50),
   sueldo               NUMBER(5, 2)     NOT NULL,
-  es_gerente           NUMBER(1, 0)     NOT NULL,
-  es_veterinario       NUMBER(1, 0)     NOT NULL,
-  es_administrativo    NUMBER(1, 0)     NOT NULL,
+  es_gerente           NUMBER(1, 0)     DEFAULT  0,
+  es_veterinario       NUMBER(1, 0)     DEFAULT  0,
+  es_administrativo    NUMBER(1, 0)     DEFAULT  0,
   codigo_centro_id     VARCHAR2(5),
   CONSTRAINT empleado_pk PRIMARY KEY (empleado_id),
   CONSTRAINT empleado_codigo_centro_fk FOREIGN KEY (codigo_centro_id)
@@ -158,7 +159,7 @@ PROMPT ### Creando tabla mascota ###
 CREATE TABLE mascota(
   folio_mascota_id     VARCHAR2(8)      NOT NULL,
   nombre               VARCHAR2(50)     NOT NULL,
-  fecha_ingreso        DATE             NOT NULL,
+  fecha_ingreso        DATE             DEFAULT  SYSDATE,
   fecha_nacimiento     DATE             NOT NULL,
   causa_muerte         VARCHAR2(250),
   codigo_centro_id     VARCHAR2(5),
@@ -177,7 +178,7 @@ PROMPT ### Creando tabla historial_mascota ###
 CREATE TABLE historial_mascota(
   historial_mascota_id    NUMBER(10, 0)    NOT NULL,
   folio_mascota_id        VARCHAR2(8)      NOT NULL,
-  fecha                   DATE             NOT NULL,
+  fecha                   DATE             DEFAULT  SYSDATE,
   estado_mascota_id       NUMBER(10, 0)    NOT NULL,
   CONSTRAINT historial_mascota_pk PRIMARY KEY (historial_mascota_id),
   CONSTRAINT historial_mascota_folio_mascota_fk FOREIGN KEY (folio_mascota_id)
@@ -190,7 +191,7 @@ PROMPT ### Creando tabla origen_mascota ###
 CREATE TABLE origen_mascota(
   origen_mascota_id    NUMBER(10, 0)    NOT NULL,
   folio_mascota_id     VARCHAR2(8)      NOT NULL,
-  tipo_origen          CHAR(1)          NOT NULL,
+  tipo_origen          CHAR(1)          DEFAULT  'a',
   nombre_donador       VARCHAR2(100),
   mascota_madre_id     VARCHAR2(8),
   mascota_padre_id     VARCHAR2(8),
@@ -200,7 +201,8 @@ CREATE TABLE origen_mascota(
   CONSTRAINT origen_mascota_padre_fk FOREIGN KEY (mascota_padre_id)
     REFERENCES mascota(folio_mascota_id),
   CONSTRAINT origen_mascota_madre_fk FOREIGN KEY (mascota_madre_id)
-    REFERENCES mascota(folio_mascota_id)
+    REFERENCES mascota(folio_mascota_id),
+  CONSTRAINT origen_mascota_tipo_origen_chk CHECK( tipo_origen IN ('a','d','c') )
 );
 
 PROMPT ### Creando tabla cliente ###
@@ -212,8 +214,8 @@ CREATE TABLE cliente(
   ocupacion       VARCHAR2(50),
   username        VARCHAR2(20)     NOT NULL,
   password        VARCHAR2(20)     NOT NULL,
-  es_donador      NUMBER(1, 0)     NOT NULL,
-  es_adoptante    NUMBER(1, 0)     NOT NULL,
+  es_donador      NUMBER(1, 0)     DEFAULT  0,
+  es_adoptante    NUMBER(1, 0)     DEFAULT  0,
   CONSTRAINT cliente_pk PRIMARY KEY (id_cliente),
   CONSTRAINT cliente_username_uk UNIQUE (username),
   CONSTRAINT cliente_es_donador_chk CHECK( es_donador IN (0,1) ),
@@ -223,7 +225,7 @@ CREATE TABLE cliente(
 PROMPT ### Creando tabla adopcion ###
 CREATE TABLE adopcion(
   adopcion_id         NUMBER(10, 0)    NOT NULL,
-  estado_solicitud    NUMBER(1, 0)     NOT NULL,
+  estado_solicitud    NUMBER(1, 0)     DEFAULT  0,
   razon               VARCHAR2(100),
   fecha               DATE,
   id_cliente          NUMBER(10, 0)    NOT NULL,
@@ -232,45 +234,46 @@ CREATE TABLE adopcion(
   CONSTRAINT adopcion_cliente_fk FOREIGN KEY (id_cliente)
     REFERENCES cliente(id_cliente),
   CONSTRAINT adopcion_mascota_fk FOREIGN KEY (folio_mascota_id)
-    REFERENCES mascota(folio_mascota_id)
+    REFERENCES mascota(folio_mascota_id),
+  CONSTRAINT adopcion_estado_solicitud_chk CHECK( estado_solicitud IN (0,1,2) )
 );
 
 PROMPT ### Creando tabla revision ###
 CREATE TABLE revision(
-  revision_id         NUMBER(10, 0)    NOT NULL,
+  folio_mascota_id    VARCHAR2(8)      NOT NULL,
   num_revision        NUMBER(10, 0)    NOT NULL,
-  fecha               DATE             NOT NULL,
-  tipo_revision       CHAR(1)          NOT NULL,
+  fecha               DATE             DEFAULT  SYSDATE,
+  tipo_revision       CHAR(1)          DEFAULT  'r',
   codigo_centro_id    VARCHAR2(5)      NOT NULL,
-  folio_mascota_id    VARCHAR2(8),
-  CONSTRAINT revision_pk PRIMARY KEY (revision_id, num_revision),
+  CONSTRAINT revision_pk PRIMARY KEY (folio_mascota_id, num_revision),
   CONSTRAINT revision_centro_operativo_fk FOREIGN KEY (codigo_centro_id)
     REFERENCES centro_operativo(codigo_centro_id),
   CONSTRAINT revision_mascota_fk FOREIGN KEY (folio_mascota_id)
-    REFERENCES mascota(folio_mascota_id)
+    REFERENCES mascota(folio_mascota_id),
+  CONSTRAINT revision_tipo_revision_chk CHECK( tipo_revision IN ('c', 'r') )
 );
 
 PROMPT ### Creando tabla revision_clinica ###
 CREATE TABLE revision_clinica(
-  revision_id      NUMBER(10, 0)    NOT NULL,
-  num_revision     NUMBER(10, 0)    NOT NULL,
-  calificacion     NUMBER(2, 0)     NOT NULL,
-  costo            NUMBER(5, 2)     NOT NULL,
-  observaciones    VARCHAR2(500)    NOT NULL,
-  CONSTRAINT revision_clinica_pk PRIMARY KEY (revision_id, num_revision),
-  CONSTRAINT revision_clinica_revision_fk FOREIGN KEY (revision_id, num_revision)
-    REFERENCES revision(revision_id, num_revision)
+  folio_mascota_id    VARCHAR2(8)      NOT NULL,
+  num_revision        NUMBER(10, 0)    NOT NULL,
+  calificacion        NUMBER(2, 0)     NOT NULL,
+  costo               NUMBER(5, 2)     NOT NULL,
+  observaciones       VARCHAR2(500)    NOT NULL,
+  CONSTRAINT revision_clinica_pk PRIMARY KEY (folio_mascota_id, num_revision),
+  CONSTRAINT revision_clinica_revision_fk FOREIGN KEY (folio_mascota_id, num_revision)
+    REFERENCES revision(folio_mascota_id, num_revision)
 );
 
 PROMPT ### Creando tabla revision_refugio ###
 CREATE TABLE revision_refugio(
-  revision_id     NUMBER(10, 0)    NOT NULL,
-  num_revision    NUMBER(10, 0)    NOT NULL,
-  diagnostico     VARCHAR2(500)    NOT NULL,
-  foto            BLOB             NOT NULL,
-  CONSTRAINT revision_refugio_pk PRIMARY KEY (revision_id, num_revision),
-  CONSTRAINT revision_refugio_revision_fk FOREIGN KEY (revision_id, num_revision)
-    REFERENCES revision(revision_id, num_revision)
+  folio_mascota_id    VARCHAR2(8)      NOT NULL,
+  num_revision        NUMBER(10, 0)    NOT NULL,
+  diagnostico         VARCHAR2(500)    NOT NULL,
+  foto                BLOB             NOT NULL,
+  CONSTRAINT revision_refugio_pk PRIMARY KEY (folio_mascota_id, num_revision),
+  CONSTRAINT revision_refugio_revision_fk FOREIGN KEY (folio_mascota_id, num_revision)
+    REFERENCES revision(folio_mascota_id, num_revision)
 );
 
 --
