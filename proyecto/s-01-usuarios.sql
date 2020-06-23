@@ -6,6 +6,9 @@
 PROMPT ### Conectando como sysdba ###
 CONNECT sys as sysdba
 
+-- Por si hay error, sabemos que podria marcar, continuamos
+WHENEVER SQLERROR CONTINUE
+
 --
 PROMPT ### Eliminando usuarios ###
 DROP USER ap_proy_invitado CASCADE;
@@ -15,6 +18,9 @@ DROP USER ap_proy_admin CASCADE;
 PROMPT ### Eliminando roles ###
 DROP ROLE rol_invitado;
 DROP ROLE rol_admin;
+
+-- Por si hay error
+WHENEVER SQLERROR EXIT
 
 --
 PROMPT ### Creando rol admin ###
@@ -44,7 +50,7 @@ GRANT rol_admin TO ap_proy_admin;
 GRANT rol_invitado TO ap_proy_invitado;
 
 --
-PROMPT ### Listo ###
+PROMPT ### Listo s-01-usuarios.sql ###
 
 DISCONNECT
 /
