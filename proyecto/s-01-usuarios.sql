@@ -1,6 +1,6 @@
 --@Autor(es):       Paul Aguilar, Ana Laura Pérez Bueno
 --@Fecha creación:  24/06/2020
---@Descripción:     Script para creación de usuarios
+--@Descripción:     Script para creación de roles y usuarios
 
 --
 PROMPT ### Conectando como sysdba ###

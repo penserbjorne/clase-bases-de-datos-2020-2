@@ -14,7 +14,7 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 - [x] Construcción del modelo relacional.
 - [x] Script `s-01-usuarios.sql`
 - [x] Script `s-02-entidades.sql`
-- [ ] Script `s-03-tablas-temporales.sql`
+- [x] Script `s-03-tablas-temporales.sql`
 - [ ] Script `s-04-tablas-externas.sql`
 - [ ] Script `s-05-secuencias.sql`
 - [ ] Script `s-06-índices.sql`
@@ -43,7 +43,7 @@ Rvisar el documento [01_asignacion-pet-home.pdf](./01_asignacion-pet-home.pdf).
 - [x] Definición de usuario admin e invitado
 - [x] Definición de tablas con todos los tipos de constraints
 - [x] Columnas virtuales, uso de default
-- [ ] Uso de tablas temporales con escenarios de uso adecuados
+- [x] Uso de tablas temporales con escenarios de uso adecuados
 - [ ] Uso de tablas externas con escenarios de uso adecuados
 - [ ] Diseño de secuencias y columnas de tipo Identity
 - [ ] Diseño del esquema de indexado con todos los tipos
