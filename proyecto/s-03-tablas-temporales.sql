@@ -10,7 +10,10 @@ CONNECT ap_proy_admin/admin
 WHENEVER SQLERROR CONTINUE
 
 -- Eliminamos la tabla por si existe
-TRUNCATE TABLE mascotas_en_adopcion;
+PROMPT ### Eliminando tabla mascotas_en_adopcion ###
+-- Si esta en uso, hay que "detenerla"
+TRUNCATE TABLE mascotas_en_adopcion DROP STORAGE;
+-- Eliminamos
 DROP TABLE mascotas_en_adopcion;
 
 -- Por si hay error
@@ -32,7 +35,13 @@ CREATE GLOBAL TEMPORARY TABLE mascotas_en_adopcion (
   subcategoria_tipo    VARCHAR2(50)     NOT NULL,
   cuidados             NUMBER(1, 0)     NOT NULL,
   -- Datos de ultima revision
-  fecha                DATE             DEFAULT  SYSDATE,
+  fecha_revision       DATE             DEFAULT  SYSDATE,
   diagnostico          VARCHAR2(500)    NOT NULL,
   foto                 BLOB             NOT NULL
 ) ON COMMIT DELETE ROWS;
+
+--
+PROMPT ### Listo s-03-tablas-temporales.sql ###
+
+DISCONNECT:
+/
