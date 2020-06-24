@@ -77,5 +77,5 @@ SELECT * FROM mascotas_atencion_dia;
 --
 PROMPT ### Listo s-04-tablas-externas.sql ###
 
-DISCONNECT:
+DISCONNECT
 /

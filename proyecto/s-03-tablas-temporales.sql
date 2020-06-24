@@ -43,5 +43,5 @@ CREATE GLOBAL TEMPORARY TABLE mascotas_en_adopcion (
 --
 PROMPT ### Listo s-03-tablas-temporales.sql ###
 
-DISCONNECT:
+DISCONNECT
 /

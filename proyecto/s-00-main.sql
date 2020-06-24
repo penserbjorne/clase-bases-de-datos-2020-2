@@ -6,3 +6,4 @@
 @@s-02-entidades.sql
 @@s-03-tablas-temporales.sql
 @@s-04-tablas-externas.sql
+@@s-05-secuencias.sql
