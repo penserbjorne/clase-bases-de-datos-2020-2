@@ -17,7 +17,7 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 - [x] Script `s-03-tablas-temporales.sql`
 - [x] Script `s-04-tablas-externas.sql`
 - [x] Script `s-05-secuencias.sql`
-- [ ] Script `s-06-índices.sql`
+- [x] Script `s-06-índices.sql`
 - [ ] Script `s-07-sinonimos.sql`
 - [ ] Script `s-08-vistas-sql`
 - [ ] Script `s-09-carga-inicial.sql`
@@ -46,7 +46,7 @@ Rvisar el documento [01_asignacion-pet-home.pdf](./01_asignacion-pet-home.pdf).
 - [x] Uso de tablas temporales con escenarios de uso adecuados
 - [x] Uso de tablas externas con escenarios de uso adecuados
 - [x] Diseño de secuencias y columnas de tipo Identity
-- [ ] Diseño del esquema de indexado con todos los tipos
+- [x] Diseño del esquema de indexado con todos los tipos
 - [ ] Propuesta de creación de sinónimos y escenarios adecuados de su uso
 - [ ] Propuesta de creación de vistas y escenarios adecuados de uso
 - [ ] Carga Inicial. Validación de la estrategia para realizar la carga de

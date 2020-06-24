@@ -19,6 +19,7 @@ WHENEVER SQLERROR CONTINUE
   -- tipo_mascota
   -- estado_mascota
 
+-- Eliminamos secuenciass
 PROMPT ### Eliminando secuencias ###
 DROP SEQUENCE seq_empleado;
 DROP SEQUENCE seq_historial_mascota;

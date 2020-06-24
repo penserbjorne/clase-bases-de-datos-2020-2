@@ -117,6 +117,7 @@ CREATE TABLE empleado(
   CONSTRAINT empleado_pk PRIMARY KEY (empleado_id),
   CONSTRAINT empleado_codigo_centro_fk FOREIGN KEY (codigo_centro_id)
     REFERENCES centro_operativo(codigo_centro_id),
+  CONSTRAINT empleado_curp_uk UNIQUE (curp),
   CONSTRAINT empleado_es_gerente_chk CHECK( es_gerente IN (0,1) ),
   CONSTRAINT empleado_es_veterinario_chk CHECK( es_veterinario IN (0,1) ),
   CONSTRAINT empleado_es_administrativo_chk CHECK( es_administrativo IN (0,1) )
