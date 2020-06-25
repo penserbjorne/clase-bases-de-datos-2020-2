@@ -1,0 +1,2 @@
+SELECT SYNONYM_NAME FROM user_synonyms
+/

@@ -1,6 +1,10 @@
 --@Autor(es):       Jorge Rodríguez
---@Fecha creación:  
+--@Fecha creación:
 --@Descripción:     Script validacion proyecto final
+
+--CONNECT sys/system as sysdba
+--CONNECT ap_proy_admin/admin
+
 set serveroutput on
 declare
     v_num_tablas number(10,0);
@@ -39,17 +43,17 @@ declare
     v_created date;
 
     cursor cur_tablas IS select table_name from user_tables;
-    cursor cur_constraints is select constraint_type, 
-        count(*)user_sequences from user_constraints 
+    cursor cur_constraints is select constraint_type,
+        count(*)user_sequences from user_constraints
         where constraint_type in('C','P','U','R') group by constraint_type;
-    cursor cur_usuarios is select username,created from all_users 
+    cursor cur_usuarios is select username,created from all_users
         where username like '%_PROY_USER%' or username like '%_PROY_ADMIN%';
 begin
-	--tablas 
+	--tablas
     select count(*) into v_num_tablas_temp from user_tables where temporary='Y';
     select count(*) into v_num_tablas_externas from user_external_tables;
    	--secuencias
-   	select count(*) into v_num_sequences from user_sequences;    
+   	select count(*) into v_num_sequences from user_sequences;
     --columnas
     select count(*) into v_num_default from user_tab_cols where data_default is not null and virtual_column='NO';
     select count(*) into v_num_virtual from user_tab_cols where data_default is not null and virtual_column='YES';
@@ -59,17 +63,17 @@ begin
     select count(*) into v_num_index_lob from user_indexes where index_type='LOB';
     select count(*) into v_num_index_function_based from user_indexes where index_type='FUNCTION-BASED NORMAL';
     --indices de PKs
-    select count(*) into v_num_index_unique_pk 
+    select count(*) into v_num_index_unique_pk
     from user_indexes ix, user_constraints uc
-	where ix.index_name = uc.index_name 
+	where ix.index_name = uc.index_name
 	and uc.constraint_type='P'
 	and ix.uniqueness ='UNIQUE'
 	and ix.index_type='NORMAL';
 	--indices unique no pks
 	select count(*) into v_num_index_unique_non_pk
-	from user_indexes 
+	from user_indexes
 	where uniqueness ='UNIQUE'
-	and index_name not in(select index_name from user_constraints  where index_name is not null) 
+	and index_name not in(select index_name from user_constraints  where index_name is not null)
 	and index_type ='NORMAL';
 
     --directorios
@@ -87,11 +91,11 @@ begin
    select count(*) into v_num_invalid from user_objects where status ='INVALID';
     --registros
     open cur_tablas;
-    loop 
+    loop
         fetch cur_tablas into v_nombre_tabla;
-        
+
         execute immediate 'select count(*) into :ph_num_registros '
-        	||' from ' 
+        	||' from '
         	||v_nombre_tabla into v_num_registros;
 
         exit when cur_tablas%notfound;
@@ -113,13 +117,13 @@ begin
             when 'U' then
                 v_num_constraints_u:= v_num_constraints;
             when 'R' then
-                v_num_constraints_r:= v_num_constraints;    
+                v_num_constraints_r:= v_num_constraints;
            else
             dbms_output.put_line('Invalid constraint type: '||v_tipo_constraint);
         end case;
     end loop;
     close cur_constraints;
-    
+
     dbms_output.put_line('-------USERS----');
     open cur_usuarios;
     loop
@@ -127,8 +131,8 @@ begin
         exit when cur_usuarios%notfound;
          dbms_output.put_line(v_username||' - '||v_created);
     end loop;
-    close cur_usuarios;  
-    
+    close cur_usuarios;
+
     dbms_output.put_line('-------RESULTADOS----');
     dbms_output.put_line('TABLES             '||v_num_total_tablas);
     dbms_output.put_line('TABLE TEMP         '||v_num_tablas_temp);
@@ -154,7 +158,9 @@ begin
     dbms_output.put_line('PROCEDURES         '||v_num_procedures);
     dbms_output.put_line('TRIGGERS           '||v_num_triggers);
     dbms_output.put_line('FUNCTIONS          '||v_num_functions);
-    dbms_output.put_line('INVALID            '||v_num_invalid);   
-   
+    dbms_output.put_line('INVALID            '||v_num_invalid);
+
 end;
+
+--DISCONNECT
 /
