@@ -153,7 +153,7 @@ CREATE OR REPLACE VIEW v_revisiones (
 --DESCRIBE v_revisiones;
 
 --
-PROMPT ### Listo s-08-vistas.sql ###
+PROMPT ### Listo s-09-carga-inicial.sql ###
 
 DISCONNECT
 /

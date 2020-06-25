@@ -26,7 +26,7 @@ DROP SEQUENCE seq_historial_mascota;
 DROP SEQUENCE seq_origen_mascota;
 DROP SEQUENCE seq_cliente;
 DROP SEQUENCE seq_adopcion;
-DROP SEQUENCE seq_num_revision;
+DROP SEQUENCE seq_num_revision; --?
 
 -- Por si hay error
 WHENEVER SQLERROR EXIT

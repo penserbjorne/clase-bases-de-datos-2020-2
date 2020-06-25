@@ -1,2 +1,4 @@
-SELECT SYNONYM_NAME FROM user_synonyms
+select 
+TO_char(hora_fin, 'hh24:mm') - TO_char(hora_inicio, 'hh24:mm')
+from clinica
 /
