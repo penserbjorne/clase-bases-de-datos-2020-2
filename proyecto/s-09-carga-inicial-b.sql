@@ -58,7 +58,7 @@ COL foto FORMAT A25;
 SELECT * FROM revision_refugio;
 
 --
-PROMPT ### Listo @@s-09-carga-inicial-b.sql ###
+PROMPT ### Listo s-09-carga-inicial-b.sql ###
 
 DISCONNECT
 /

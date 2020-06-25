@@ -274,6 +274,8 @@ INSERT INTO historial_mascota VALUES(
   seq_historial_mascota.nextval, 'aaaaaaaa', SYSDATE-26, 3
 );
 
+UPDATE mascota SET estado_mascota_id = 4 WHERE folio_mascota_id = 'aaaaaaaa';
+
 INSERT INTO historial_mascota VALUES(
   seq_historial_mascota.nextval, 'aaaaaaaa', SYSDATE-11, 4
 );
@@ -311,8 +313,14 @@ INSERT INTO adopcion VALUES(
   seq_adopcion.nextval, 0, NULL, NULL, seq_cliente.currval, 'aaaaaaaf'
 );
 
+UPDATE mascota SET estado_mascota_id = 3 WHERE folio_mascota_id = 'aaaaaaaf';
+
 INSERT INTO historial_mascota VALUES(
   seq_historial_mascota.nextval, 'aaaaaaad', SYSDATE-4, 3
+);
+
+INSERT INTO historial_mascota VALUES(
+  seq_historial_mascota.nextval, 'aaaaaaad', SYSDATE-3, 3
 );
 
 INSERT INTO revision VALUES('aaaaaaaa', 1, SYSDATE-15, 'r', 'AAAAA');
@@ -352,6 +360,7 @@ INSERT INTO revision_refugio VALUES(
 );
 
 COMMIT
+
 --
 PROMPT ### Listo s-09-carga-inicial.sql ###
 

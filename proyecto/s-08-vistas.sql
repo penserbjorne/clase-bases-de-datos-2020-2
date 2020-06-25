@@ -130,27 +130,11 @@ CREATE OR REPLACE VIEW v_revisiones (
     ON m.estado_mascota_id = em.estado_mascota_id
   JOIN centro_operativo co
     ON r.codigo_centro_id = co.codigo_centro_id
-  JOIN revision_clinica rc
+  LEFT JOIN revision_clinica rc
     ON r.folio_mascota_id = rc.folio_mascota_id
-  JOIN revision_refugio rr
+  LEFT JOIN revision_refugio rr
     ON r.folio_mascota_id = rr.folio_mascota_id
 ;
-
---
---SET LINESIZE 80;
---PROMPT ### Probando vistas ###
---PROMPT ### Vista v_refugio ###
---DESCRIBE v_refugio;
---PROMPT ### Vista v_clinica ###
---DESCRIBE v_clinica;
---PROMPT ### Vista v_oficina ###
---DESCRIBE v_oficina;
---PROMPT ### Vista v_sitios_web ###
---DESCRIBE v_sitios_web;
---PROMPT ### Vista v_mascotas ###
---DESCRIBE v_mascotas;
---PROMPT ### Vista v_revisiones ###
---DESCRIBE v_revisiones;
 
 --
 PROMPT ### Listo s-09-carga-inicial.sql ###

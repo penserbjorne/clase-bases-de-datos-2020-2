@@ -18,6 +18,7 @@ CREATE OR REPLACE PUBLIC SYNONYM r FOR refugio;
 CREATE OR REPLACE PUBLIC SYNONYM c FOR clinica;
 CREATE OR REPLACE PUBLIC SYNONYM o FOR oficina;
 CREATE OR REPLACE PUBLIC SYNONYM m FOR mascota;
+CREATE OR REPLACE PUBLIC SYNONYM em FOR estado_mascota;
 CREATE OR REPLACE PUBLIC SYNONYM hm FOR historial_mascota;
 
 
@@ -29,6 +30,7 @@ GRANT SELECT ON r TO ap_proy_invitado;
 GRANT SELECT ON c TO ap_proy_invitado;
 GRANT SELECT ON o TO ap_proy_invitado;
 GRANT SELECT ON m TO ap_proy_invitado;
+GRANT SELECT ON em TO ap_proy_invitado;
 GRANT SELECT ON hm TO ap_proy_invitado;
 
 -- Generar 3 o más sinónimos que le pertenezcan al usuario invitado. Dichos
@@ -43,6 +45,7 @@ CREATE OR REPLACE SYNONYM refugio FOR ap_proy_admin.refugio;
 CREATE OR REPLACE SYNONYM clinica FOR ap_proy_admin.clinica;
 CREATE OR REPLACE SYNONYM oficina FOR ap_proy_admin.oficina;
 CREATE OR REPLACE SYNONYM mascota FOR ap_proy_admin.mascota;
+CREATE OR REPLACE SYNONYM estado_mascota FOR ap_proy_admin.estado_mascota;
 CREATE OR REPLACE SYNONYM historial_mascota FOR ap_proy_admin.historial_mascota;
 
 -- Finalmente, suponer que un software necesita que todas las tablas del

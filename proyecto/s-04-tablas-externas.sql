@@ -63,16 +63,6 @@ PROMPT ## Creando el directorio temporal '/tmp/bd'
 PROMPT ## Copiando archivo .CSV al directorio temporal '/tmp/bd'
 !cp mascotas_atencion_dia.csv /tmp/bd
 
--- Probando los datos
---SET LINESIZE 160;
---COL folio_mascota_id HEADING "ID" FORMAT A8;
---COL nombre FORMAT A20;
---COL nombre_tipo HEADING "ESPECIE" FORMAT A20;
---COL subcategoria_tipo HEADING "SUB ESPECIE" FORMAT A20;
---COL cuidados FORMAT 9;
---COL diagnostico FORMAT A25;
---SELECT * FROM mascotas_atencion_dia;
-
 --
 PROMPT ### Listo s-04-tablas-externas.sql ###
 

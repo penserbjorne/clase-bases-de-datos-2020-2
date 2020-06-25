@@ -37,8 +37,8 @@ CREATE GLOBAL TEMPORARY TABLE mascotas_en_adopcion (
   -- Datos de ultima revision
   fecha_revision       DATE             DEFAULT  SYSDATE,
   diagnostico          VARCHAR2(500)    NOT NULL,
-  foto                 BLOB             NOT NULL
-) ON COMMIT DELETE ROWS;
+  foto                 BLOB
+) ON COMMIT PRESERVE ROWS;
 
 --
 PROMPT ### Listo s-03-tablas-temporales.sql ###

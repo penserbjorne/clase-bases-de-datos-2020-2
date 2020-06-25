@@ -20,8 +20,8 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 - [x] Script `s-06-índices.sql`
 - [x] Script `s-07-sinonimos.sql`
 - [x] Script `s-08-vistas-sql`
-- [ ] Script `s-09-carga-inicial.sql`
-- [ ] Script `s-10-consultas.sql`
+- [x] Script `s-09-carga-inicial.sql`
+- [x] Script `s-10-consultas.sql`
 - [ ] Scripts `s-11-tr-<nombre-trigger>.sql`
 - [ ] Scripts `s-12-tr-<nombre-trigger>-prueba.sql`
 - [ ] Scripts `s-13-p-<nombre-procedimiento>.sql`
@@ -31,7 +31,7 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 - [ ] Scripts `s-17-lob-<nombre-programa>.sql`
 - [ ] Scripts `s-18-lob-<nombre-programa>-prueba.sql`
 - [ ] Scripts `s-19-cur-<nombre-programa>.sql`
-- [ ] Script `s-00-main.sql`
+- [x] Script `s-00-main.sql`
 - [ ] APLICACIÓN WEB / STANDALONE
 
 ## Rubrica
@@ -49,9 +49,9 @@ Rvisar el documento [01_asignacion-pet-home.pdf](./01_asignacion-pet-home.pdf).
 - [x] Diseño del esquema de indexado con todos los tipos
 - [x] Propuesta de creación de sinónimos y escenarios adecuados de su uso
 - [x] Propuesta de creación de vistas y escenarios adecuados de uso
-- [ ] Carga Inicial. Validación de la estrategia para realizar la carga de
+- [x] Carga Inicial. Validación de la estrategia para realizar la carga de
   datos y escenarios adecuados de uso
-- [ ] Consultas de datos que hacen uso de todos los tipos de joins, funciones de
+- [x] Consultas de datos que hacen uso de todos los tipos de joins, funciones de
   agregación, subconsultas, operadores del álgebra relacional
 - [ ] Diseño de triggers y evaluación de complejidad y escenarios adecuados
 - [ ] Desarrollo de prueba automática para probar triggers
