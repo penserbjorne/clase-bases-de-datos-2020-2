@@ -11,11 +11,12 @@ WHENEVER SQLERROR CONTINUE
 
 -- Eliminamos indices
 PROMPT ### Eliminando indices ###
--- DROP INDEX refugio_codigo_num_registro_iuk;
--- DROP INDEX oficina_rfc_iuk;
--- DROP INDEX empleado_curp_iuk;
--- DROP INDEX grado_titulo_iuk;
--- DROP INDEX cliente_username_iuk;
+DROP INDEX refugio_codigo_num_registro_iuk;
+DROP INDEX oficina_rfc_iuk;
+DROP INDEX empleado_curp_iuk;
+DROP INDEX grado_titulo_iuk;
+DROP INDEX cliente_username_iuk;
+--
 DROP INDEX centro_operativo_gerente_ix;
 DROP INDEX sitio_web_codigo_centro_id_ix;
 DROP INDEX empleado_codigo_centro_id_ix;
@@ -56,11 +57,11 @@ PROMPT ### Creando indices ###
   --  aquí, referencia: https://www.oratable.com/unique-constraint-vs-unique-index/
 
   -- A continuación se deja la creación de los indices correspondientes
--- CREATE INDEX refugio_codigo_num_registro_iuk ON refugio(num_registro);
--- CREATE INDEX oficina_rfc_iuk ON refugio(rfc);
--- CREATE INDEX empleado_curp_iuk ON empleado(curp);
--- CREATE INDEX grado_titulo_iuk ON grado(titulo);
--- CREATE INDEX cliente_username_iuk ON cliente(username);
+--CREATE UNIQUE INDEX refugio_codigo_num_registro_iuk ON refugio(num_registro);
+CREATE UNIQUE INDEX oficina_rfc_iuk ON oficina(rfc);
+CREATE UNIQUE INDEX empleado_curp_iuk ON empleado(curp);
+--CREATE UNIQUE INDEX grado_titulo_iuk ON grado(titulo);
+CREATE UNIQUE INDEX cliente_username_iuk ON cliente(username);
 
 -- Uso de índices Non Unique para mejorar el desempeño de las consultas,
 -- por ejemplo, identificar posibles campos que son empleados frecuentemente en

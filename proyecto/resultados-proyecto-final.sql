@@ -3,10 +3,14 @@
 --@Descripción:     Script validacion proyecto final
 
 --CONNECT sys/system as sysdba
---CONNECT ap_proy_admin/admin
+CONNECT ap_proy_admin/admin
 
-set serveroutput on
+SET SERVEROUTPUT ON
+
 declare
+    v_codigo number;
+    v_mensaje varchar2(1000);
+
     v_num_tablas number(10,0);
     v_num_total_tablas number(10,0);
     v_num_tablas_temp number(10,0);
@@ -160,7 +164,18 @@ begin
     dbms_output.put_line('FUNCTIONS          '||v_num_functions);
     dbms_output.put_line('INVALID            '||v_num_invalid);
 
-end;
+exception
 
---DISCONNECT
+    WHEN OTHERS THEN
+      v_codigo := sqlcode;
+      v_mensaje := sqlerrm;
+      dbms_output.put_line('Codigo:  ' || v_codigo);
+      dbms_output.put_line('Mensaje: ' || v_mensaje);
+
+end;
+/
+
+SHOW ERRORS
+
+DISCONNECT
 /

@@ -86,8 +86,8 @@ CREATE TABLE oficina(
   representante_legal    VARCHAR2(100)    NOT NULL,
   CONSTRAINT oficina_pk PRIMARY KEY (codigo_centro_id),
   CONSTRAINT oficina_codigo_centro_fk FOREIGN KEY (codigo_centro_id)
-    REFERENCES centro_operativo(codigo_centro_id),
-  CONSTRAINT oficina_rfc_uk UNIQUE (rfc)
+    REFERENCES centro_operativo(codigo_centro_id)
+  --CONSTRAINT oficina_rfc_uk UNIQUE (rfc)
 );
 
 PROMPT ### Creando tabla sitio_web ###
@@ -121,10 +121,10 @@ CREATE TABLE empleado(
   CONSTRAINT empleado_pk PRIMARY KEY (empleado_id),
   CONSTRAINT empleado_codigo_centro_fk FOREIGN KEY (codigo_centro_id)
     REFERENCES centro_operativo(codigo_centro_id),
-  CONSTRAINT empleado_curp_uk UNIQUE (curp),
   CONSTRAINT empleado_es_gerente_chk CHECK( es_gerente IN (0,1) ),
   CONSTRAINT empleado_es_veterinario_chk CHECK( es_veterinario IN (0,1) ),
   CONSTRAINT empleado_es_administrativo_chk CHECK( es_administrativo IN (0,1) )
+  --CONSTRAINT empleado_curp_uk UNIQUE (curp)
 );
 
 ALTER TABLE centro_operativo ADD CONSTRAINT centro_operativo_gerente_fk
@@ -234,9 +234,9 @@ CREATE TABLE cliente(
   es_donador      NUMBER(1, 0)     DEFAULT  0,
   es_adoptante    NUMBER(1, 0)     DEFAULT  0,
   CONSTRAINT cliente_pk PRIMARY KEY (id_cliente),
-  CONSTRAINT cliente_username_uk UNIQUE (username),
   CONSTRAINT cliente_es_donador_chk CHECK( es_donador IN (0,1) ),
   CONSTRAINT cliente_es_adoptante_chk CHECK( es_adoptante IN (0,1) )
+  --CONSTRAINT cliente_username_uk UNIQUE (username)
 );
 
 PROMPT ### Creando tabla adopcion ###
