@@ -92,10 +92,10 @@ END;
 SHOW ERRORS
 
 --
-PROMPT ### Mostrando sinonimos ###
-COL table_name FORMAT A30;
-COL synonym_name FORMAT A30;
-SELECT table_name, synonym_name FROM user_synonyms;
+--PROMPT ### Mostrando sinonimos ###
+--COL table_name FORMAT A30;
+--COL synonym_name FORMAT A30;
+--SELECT table_name, synonym_name FROM user_synonyms;
 
 --
 PROMPT ### Listo s-07-sinonimos.sql ###

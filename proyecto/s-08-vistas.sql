@@ -137,20 +137,20 @@ CREATE OR REPLACE VIEW v_revisiones (
 ;
 
 --
-SET LINESIZE 80;
-PROMPT ### Probando vistas ###
-PROMPT ### Vista v_refugio ###
-DESCRIBE v_refugio;
-PROMPT ### Vista v_clinica ###
-DESCRIBE v_clinica;
-PROMPT ### Vista v_oficina ###
-DESCRIBE v_oficina;
-PROMPT ### Vista v_sitios_web ###
-DESCRIBE v_sitios_web;
-PROMPT ### Vista v_mascotas ###
-DESCRIBE v_mascotas;
-PROMPT ### Vista v_revisiones ###
-DESCRIBE v_revisiones;
+--SET LINESIZE 80;
+--PROMPT ### Probando vistas ###
+--PROMPT ### Vista v_refugio ###
+--DESCRIBE v_refugio;
+--PROMPT ### Vista v_clinica ###
+--DESCRIBE v_clinica;
+--PROMPT ### Vista v_oficina ###
+--DESCRIBE v_oficina;
+--PROMPT ### Vista v_sitios_web ###
+--DESCRIBE v_sitios_web;
+--PROMPT ### Vista v_mascotas ###
+--DESCRIBE v_mascotas;
+--PROMPT ### Vista v_revisiones ###
+--DESCRIBE v_revisiones;
 
 --
 PROMPT ### Listo s-08-vistas.sql ###
