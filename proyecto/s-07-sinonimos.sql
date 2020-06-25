@@ -34,6 +34,7 @@ GRANT SELECT ON hm TO ap_proy_invitado;
 -- Generar 3 o más sinónimos que le pertenezcan al usuario invitado. Dichos
   -- sinónimos deberán ser empleados para leer el contenido de las tablas a
   -- las que el usuario admin le otorgó permisos de lectura.
+PROMPT ### Conectando a ap_proy_invitado ###
 CONNECT ap_proy_invitado/invitado
 
 PROMPT ### Creando sinonimos de lectura para el invitado ###
@@ -50,6 +51,7 @@ CREATE OR REPLACE SYNONYM historial_mascota FOR ap_proy_admin.historial_mascota;
   -- sinónimo privado para cada tabla. Se recomienda realizar un programa
   -- anónimo PL/SQL empleando SQL dinámico para evitar escribir manualmente los
   -- sinónimos.
+PROMPT ### Conectando a ap_proy_admin ###
 CONNECT ap_proy_admin/admin
 
 PROMPT ### Creando sinonimos tipo xx_<nombre_tabla> ###

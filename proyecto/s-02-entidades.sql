@@ -39,7 +39,7 @@ PROMPT ### Creando tabla centro_operativo ###
 CREATE TABLE centro_operativo(
   codigo_centro_id    VARCHAR2(5)      NOT NULL,
   nombre              VARCHAR2(50)     NOT NULL,
-  direcion            VARCHAR2(100)    NOT NULL,
+  direccion            VARCHAR2(100)    NOT NULL,
   latitud             NUMBER(9, 6)     NOT NULL,
   longitud            NUMBER(9, 6)     NOT NULL,
   es_refugio          NUMBER(1, 0)     DEFAULT  0,

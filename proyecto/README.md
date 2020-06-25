@@ -19,7 +19,7 @@ Revisar el documento [02_proyecto-final.pdf](./02_proyecto-final.pdf).
 - [x] Script `s-05-secuencias.sql`
 - [x] Script `s-06-índices.sql`
 - [x] Script `s-07-sinonimos.sql`
-- [ ] Script `s-08-vistas-sql`
+- [x] Script `s-08-vistas-sql`
 - [ ] Script `s-09-carga-inicial.sql`
 - [ ] Script `s-10-consultas.sql`
 - [ ] Scripts `s-11-tr-<nombre-trigger>.sql`
@@ -48,7 +48,7 @@ Rvisar el documento [01_asignacion-pet-home.pdf](./01_asignacion-pet-home.pdf).
 - [x] Diseño de secuencias y columnas de tipo Identity
 - [x] Diseño del esquema de indexado con todos los tipos
 - [x] Propuesta de creación de sinónimos y escenarios adecuados de su uso
-- [ ] Propuesta de creación de vistas y escenarios adecuados de uso
+- [x] Propuesta de creación de vistas y escenarios adecuados de uso
 - [ ] Carga Inicial. Validación de la estrategia para realizar la carga de
   datos y escenarios adecuados de uso
 - [ ] Consultas de datos que hacen uso de todos los tipos de joins, funciones de
